@@ -1,0 +1,20 @@
+---
+import { Search, Mail,Bell, ShoppingCart } from 'lucide-react';
+
+import NavDrawer from "@/components/preline-ui/drawer.jsx";
+---
+
+<div class="flex justify-between items-center gap-x-5 sm:hidden">
+  <div class="relative">
+    <input type="email" class="peer py-2 px-2 ps-11 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Cari di Tokopedia">
+    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+        <Search className="shrink-0 size-4 text-gray-500" />
+    </div>
+  </div>
+  <div class="flex justify-between items-center gap-x-4">
+    <a href=""><Mail className="size-5" /><span class="sr-only">to mail pages</span></a>
+    <a href=""><Bell className="size-5" /><span class="sr-only">to notif pages</span></a>
+    <a href=""><ShoppingCart className="size-5" /><span class="sr-only">to notif pages</span></a>
+    <NavDrawer />
+  </div>
+</div>

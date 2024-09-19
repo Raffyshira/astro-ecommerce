@@ -1,0 +1,48 @@
+---
+import "@/styles/globals.css";
+import { SITE_TITLE, SITE_DESCRIPTION, X_ACCOUNT } from "@/consts.ts";
+
+interface Props {
+	title: string;
+	description: string;
+};
+
+const { title, description }: Props = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+	  <title>{title || SITE_TITLE}</title>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description || SITE_DESCRIPTION} />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="generator" content={Astro.generator} />
+		
+		<meta property="og:type" content="website" />  
+		<meta property="og:title" content={title || SITE_TITLE} />
+		<meta property="og:description" content={description || SITE_DESCRIPTION} />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:image" content={Astro.site + "favicon.svg"} />
+    <meta property="og:locale" content="id" />
+    
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content={X_ACCOUNT} />
+    <meta property="twitter:title" content={title || SITE_TITLE} />
+    <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
+    <meta property="twitter:image" content={Astro.site + "favicon.svg"} />
+	</head>
+	<body>
+	  <main>
+		  <slot />
+	  </main>
+	</body>
+</html>
+
+<script>import "preline/dist/preline.js";</script>
