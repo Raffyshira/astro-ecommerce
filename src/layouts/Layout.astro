@@ -37,6 +37,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:title" content={title || SITE_TITLE} />
     <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
     <meta property="twitter:image" content={Astro.site + "favicon.svg"} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 	</head>
 	<body>
 	  <main>

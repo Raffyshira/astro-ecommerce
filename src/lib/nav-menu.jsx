@@ -8,38 +8,6 @@ import {
     QrCode
 } from "lucide-react";
 
-// export const MenuPromo = [
-//     {
-//         id: 1,
-//         name: "Kategori",
-//         link: "/",
-//         icon: <IoBagHandleOutline className="text-xl" />
-//     },
-//     {
-//         id: 2,
-//         name: "Top-up & Tagihan",
-//         link: "/",
-//         icon: <IoReceiptOutline className="text-xl" />
-//     },
-//     {
-//         id: 3,
-//         name: "Travel & Entertainment",
-//         link: "/",
-//         icon: <IoAirplaneOutline className="text-xl" />
-//     },
-//     {
-//         id: 4,
-//         name: "Keuangan",
-//         link: "/",
-//         icon: <IoCashOutline className="text-xl" />
-//     },
-//     {
-//         id: 5,
-//         name: "Layanan Lainnya",
-//         link: "/",
-//         icon: <IoEllipsisHorizontalCircle className="text-xl" />
-//     }
-// ];
 
 export const MenuItems = [
     {

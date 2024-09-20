@@ -1,12 +1,20 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
-import Header from "@/components/main-components/Header.astro";
+import Header from "@/components/navbar/Header.astro";
+
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request);
 ---
 
 <Layout>
   <Header />
 	<Container>
-	  <h1>Container</h1>
+	  {session ? (
+	    <p>Welcome {session.user?.name}</p>
+	  ) : (
+	    <h1>Your not logged in</h1>
+	  )}
 	</Container>
 </Layout>
