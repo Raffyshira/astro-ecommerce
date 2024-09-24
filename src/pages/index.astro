@@ -1,15 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
-import Header from "@/components/navbar/Header.astro";
-
+import MainHeader from "@/components/main-components/MainHeader.astro";
 import { getSession } from 'auth-astro/server';
 
 const session = await getSession(Astro.request);
 ---
 
 <Layout>
-  <Header />
+  <MainHeader haveSearch={true} />
 	<Container>
 	  {session ? (
 	    <p>Welcome {session.user?.name}</p>

@@ -1,0 +1,15 @@
+---
+import NavMobile from "@/components/mobile/navbar/Navmobile.astro";
+import NavDesktop from "@/components/desktop/navbar/NavDesktop.astro";
+
+const { haveSearch } = Astro.props || false;
+---
+
+<header>
+  <div class="hidden md:flex">
+    <NavDesktop />
+  </div>
+  <div class="md:hidden">
+    <NavMobile isHaveSearch={haveSearch} />
+  </div>
+</header>

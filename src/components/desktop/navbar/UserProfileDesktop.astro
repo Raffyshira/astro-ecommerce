@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import { Button } from "@/components/ui/button.tsx";
+
+import ModalUserProfile from "@/components/desktop/navbar/ModalUserProfile.astro"
+
+---
+
+<div class="w-fit h-full flex justify-center items-center gap-x-5 border-l-2 pl-5">
+  <div class="hs-tooltip [--trigger:click] [--placement:bottom] inline-block">
+    <button aria-label="open modal buka toko" type="button" class="hs-tooltip-toggle flex justify-center items-center w-24 h-12 text-sm font-semibold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+      <Image class="w-10 rounded-full mr-1" src="/assets/icon/icon-shop.png" alt="shop icon" loading="lazy" width={100} height={100} />
+      <p>Toko</p>
+    </button>
+    <div class="hs-tooltip-content w-1/3 hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-lg shadow-md" role="tooltip">
+      <div class="flex flex-col justify-center items-center space-y-3.5">
+        <h3 class="text-lg font-bold">Anda Belum Memiliki Toko</h3>
+        <Button className="w-full bg-green-500 font-semibold">
+          <a href="/">Buka Toko Gratis</a>
+        </Button>
+        <p>Tokomu hilang? <a class="text-green-500 font-semibold ml-1" href="/">Pelajari Selengkapnya</a></p>
+      </div>
+    </div>
+  </div>
+  <ModalUserProfile />
+</div>

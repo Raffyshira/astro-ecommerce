@@ -1,5 +1,6 @@
 ---
 import { User, Settings, ChevronRight } from "lucide-react";
+
 import { getSession } from 'auth-astro/server';
 import { Image } from "astro:assets";
 const session = await getSession(Astro.request);
@@ -8,7 +9,7 @@ const session = await getSession(Astro.request);
 <section class="max-w-full w-full">
   <div class="flex w-full justify-between items-center gap-x-4">
     <div class="flex items-center space-x-3">
-      <Image class="w-14 rounded-full" src="/assets/images/user.webp" loading="lazy" width={100} height={100} alt="user" />
+      <Image class="w-14 rounded-full" src={session.user?.image} loading="lazy" width={100} height={100} alt="user" />
       <article>
         <h2 class="font-bold inline-flex items-center text-lg"><User className="size-4 mr-1" />{session.user?.name}</h2>
         <figure class="flex items-center space-x-1">
@@ -21,7 +22,7 @@ const session = await getSession(Astro.request);
         </figure>
       </article>
     </div>
-    <a class="end-0" href="/"><Settings className="size-5" /><span class="sr-only">open settings</span></a>
+    <a class="end-0" href={`/user-profile/${session.user?.name}`}><Settings className="size-5" /><span class="sr-only">open settings</span></a>
   </div>
   <div class="w-full flex justify-between items-center border border-slate-300 w-full px-2 rounded-lg mt-3.5">
     <div class="flex justify-start items-center space-x-5">

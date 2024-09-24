@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Navmobile from "@/components/mobile/navbar/Navmobile.astro";
+import Container from "@/components/main-components/Container.astro";
+import { LogOut } from "lucide-react";
+
+import UserMobile from "@/components/mobile/user/UserMobile.astro";
+---
+
+<Layout class="bg-slate-100">
+  <Navmobile />
+  <div class="sm:hidden">
+    <UserMobile />
+    <Container class="bg-white mt-2">
+      <button id="logout" class="inline-flex items-center gap-x-2 pt-2">
+        <LogOut className="size-5" />
+        <p class="font-bold">Keluar Akun</p>
+      </button>
+    </Container>
+  </div>
+  <script>
+    const { signOut } = await import("auth-astro/client")
+    document.querySelector("#logout").onclick = () => signOut({ callbackUrl: "/" })
+  </script>
+</Layout>
