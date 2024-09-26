@@ -1,4 +1,5 @@
 ---
+import { LogOut } from 'lucide-react';
 import { Image } from "astro:assets";
 import { Button } from "@/components/ui/button.tsx";
 import { getSession } from 'auth-astro/server';
@@ -10,17 +11,74 @@ const session = await getSession(Astro.request);
     <Image class="w-10 rounded-full mr-1" src={session.user?.image} alt={session.user?.name} loading="lazy" width={100} height={100} />
     <p class="line-clamp-1 text-sm w-16">{session.user.name}</p>
   </button>
-  <div class="hs-tooltip-content w-1/2 hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-lg shadow-md" role="tooltip">
+  <div class="hs-tooltip-content w-[32rem] hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-lg shadow-md" role="tooltip">
     <div class="flex justify-start items-center bg-white shadow-md p-2 rounded-lg">
       <Image class="w-16 rounded-full mr-2" src={session.user?.image} alt={session.user?.name} loading="lazy" width={300} height={300} />
       <h3 class="text-lg font-semibold ">{session.user.name}</h3>
     </div>
-    <div class="flex justify-start items-center space-x-5">
-      <Image class="w-12" src="/assets/icon/gratis-ongkir.png" alt="plus ongkir" loading="lazy" width={100} height={100} />
-      <article class="text-sm">
-        <p class="font-semibold">Nikmatin Bebas Ongkir tanpa batas!</p>
-        <p class="text-slate-500 text-xs">Min. belanja Rp0, bebas biaya aplikasi~</p>
-      </article>
+    <div class="w-full flex flex-row justify-start items-start gap-x-8 px-5">
+      <div class="flex flex-col justify-start items-start w-full">
+        <div class="w-full flex flex-row justify-between items-center">
+          <Image class="w-14" src="/assets/icon/gratis-ongkir.png" alt="plus ongkir" loading="lazy" width={100} height={100} />
+          <a class="text-green-500 text-xs" href="/">Langganan</a>
+        </div>
+        <article class="text-sm -mt-3">
+          <p class="font-semibold">Nikmatin Bebas Ongkir tanpa batas!</p>
+          <p class="text-slate-500 text-xs">Min. belanja Rp0, bebas biaya aplikasi~</p>
+        </article>
+        <div class="flex justify-between items-center w-full mt-5 border-t py-3">
+          <div class="inline-flex items-center space-x-1">
+            <Image class="w-7" src="/assets/icon/gopay.svg" alt="icon gopay" loading="lazy" width={100} height={100} />
+            <p>Gopay</p>
+          </div>
+          <a class="text-green-500 text-xs" href="/">Aktifkan</a>
+        </div>
+        <div class="flex justify-between items-center w-full border-t border-b py-3">
+          <div class="inline-flex items-center space-x-1">
+            <Image class="w-7" src="/assets/icon/qr_code.png" alt="icon QR" loading="lazy" width={100} height={100} />
+            <p>Tokopedia Care</p>
+          </div>
+          <a class="text-green-500 text-xs" href="/">Daftar Sekarang</a>
+        </div>
+        <div class="flex justify-between items-center w-full border-b py-3">
+          <div class="inline-flex items-center space-x-1">
+            <Image class="w-7" src="/assets/icon/saldo_icon.svg" alt="icon Saldo" loading="lazy" width={100} height={100} />
+            <p>Saldo</p>
+          </div>
+          <a class="text-xs" href="/">Rp. 0</a>
+        </div>
+        <div class="w-full flex flex-col justify-between items-center mt-3.5 gap-y-3.5">
+          <a class="w-full inline-flex justify-between items-center" href="/">
+            <p>Toko Member</p>
+            <p>0</p>
+          </a>
+          <a class="w-full inline-flex justify-between items-center" href="/">
+            <p>Misi Seru</p>
+            <p>1</p>
+          </a>
+          <a class="w-full inline-flex justify-between items-center" href="/">
+            <p>Kupon Saya</p>
+            <p>Cek</p>
+          </a>
+        </div>
+      </div>
+      <div class="mt-5 h-[24.5rem] w-full flex flex-col justify-between">
+        <div class="inline-flex flex-col space-y-2 font-semibold">
+          <a class="text-base" href="/">Pembelian</a>
+          <a class="text-base" href="/">Wishlist</a>
+          <a class="text-base" href="/">Toko Favorit</a>
+          <a class="text-base" href="/">Pengaturan</a>
+        </div>
+        <button id="logout" class="inline-flex items-center gap-x-2 pt-2">
+          <LogOut className="size-4" />
+          <p class="font-bold">Keluar Akun</p>
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  const { signOut } = await import("auth-astro/client")
+  document.querySelector("#logout").onclick = () => signOut({ callbackUrl: "/" })
+ </script>
