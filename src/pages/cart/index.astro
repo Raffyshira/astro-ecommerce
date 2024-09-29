@@ -1,0 +1,14 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Container from "@/components/main-components/Container.astro";
+import { CartProvider } from "@/features/cart/CartContext.tsx";
+import MainHeader from "@/components/main-components/MainHeader.astro";
+import Cart from "@/features/cart/Cart.tsx";
+---
+
+<Layout>
+  <MainHeader haveSearch={true} />
+	<Container>
+	  <Cart client:load />
+	</Container>
+</Layout>

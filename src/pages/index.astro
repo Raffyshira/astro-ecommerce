@@ -3,17 +3,30 @@ import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
 import MainHeader from "@/components/main-components/MainHeader.astro";
 import { getSession } from 'auth-astro/server';
+import CardProduct from "@/features/product/card-product.tsx";
+
+const response = await fetch("https://dummyjson.com/products");
+const data = await response.json();
+const product = data.products;
 
 const session = await getSession(Astro.request);
 ---
 
 <Layout>
   <MainHeader haveSearch={true} />
-	<Container>
-	  {session ? (
-	    <p>Welcome {session.user?.name}</p>
-	  ) : (
-	    <h1>Your not logged in</h1>
-	  )}
+	<Container class="max-w-full">
+	  <div class="w-full h-full grid grid-cols-2 sm:grid-cols-4 gap-4">
+	    {product.map(item => (
+  	    <CardProduct
+          id={item.id}
+          image={item.images[0]}
+          discount={item.discountPercentage}
+          name={item.title}
+          price={item.price}
+          description={item.description}
+          client:load 
+        />
+	    ))}
+	  </div>
 	</Container>
 </Layout>

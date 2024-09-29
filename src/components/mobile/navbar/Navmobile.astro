@@ -31,7 +31,7 @@ const session = await getSession(Astro.request);
     {isHaveSearch ? (
       <a href=""><Mail className="size-5" /><span class="sr-only">to mail pages</span></a>
       <a href=""><Bell className="size-5" /><span class="sr-only">to notif pages</span></a>
-      <a href=""><ShoppingCart className="size-5" /><span class="sr-only">to notif pages</span></a>
+      <a href="/cart"><ShoppingCart className="size-5" /><span class="sr-only">to notif pages</span></a>
     ): null}
     <div>
       <Button type="button" variant="link" size="sm" className="px-0" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-bottom" data-hs-overlay="#hs-offcanvas-bottom"

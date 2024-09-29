@@ -69,7 +69,7 @@ const session = await getSession(Astro.request);
           <a class="text-base" href="/">Toko Favorit</a>
           <a class="text-base" href="/">Pengaturan</a>
         </div>
-        <button id="logout" class="inline-flex items-center gap-x-2 pt-2">
+        <button id="logout" class="inline-flex items-center gap-x-2 pt-2 hidden md:flex">
           <LogOut className="size-4" />
           <p class="font-bold">Keluar Akun</p>
         </button>
@@ -79,6 +79,12 @@ const session = await getSession(Astro.request);
 </div>
 
 <script>
-  const { signOut } = await import("auth-astro/client")
-  document.querySelector("#logout").onclick = () => signOut({ callbackUrl: "/" })
- </script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { signOut } = await import("auth-astro/client");
+    const logoutButton = document.querySelector("#logout");
+
+    if (logoutButton) {
+      logoutButton.onclick = () => signOut({ callbackUrl: "/" });
+    }
+  });
+</script>
