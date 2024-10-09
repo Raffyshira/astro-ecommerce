@@ -1,6 +1,9 @@
 ---
 import "@/styles/globals.css";
 import { SITE_TITLE, SITE_DESCRIPTION, X_ACCOUNT } from "@/consts.ts";
+import { ViewTransitions } from 'astro:transitions';
+import MainHeader from "@/components/main-components/MainHeader.astro";
+import { Toaster } from "@/components/ui/toaster";
 
 interface Props {
 	title: string;
@@ -14,7 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
 	<head>
 	  <title>{title || SITE_TITLE}</title>
 		<meta charset="UTF-8" />
@@ -38,15 +41,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:title" content={title || SITE_TITLE} />
     <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
     <meta property="twitter:image" content={Astro.site + "favicon.svg"} />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <ViewTransitions />
 	</head>
 	<body>
+	   <MainHeader />
 	   <main class:list={[className]}>
 		  <slot />
 	   </main>
+	   <Toaster client:load />
 	</body>
 </html>
-
-<script>import "preline/dist/preline.js";</script>

@@ -62,9 +62,40 @@
    }
    body {
       @apply bg-background text-foreground;
-      font-family: "Inter", Sans-Serif;
+      font-family: "Satoshi";
    }
    .nav_links {
-      @apply font-medium line-clamp-1 text-xs text-slate-500 hover:text-gray-400 focus:outline-none focus:text-gray-400;
+      @apply font-SatoshiMedium line-clamp-1 text-sm text-foreground hover:text-gray-400 focus:outline-none focus:text-gray-400;
    }
+}
+
+@font-face {
+   font-family: "Satoshi";
+   font-display: swap;
+   src: url("./font/Satoshi-Regular.otf");
+}
+@font-face {
+   font-family: "Satoshi-Medium";
+   font-display: swap;
+   src: url("./font/Satoshi-Medium.otf");
+}
+@font-face {
+   font-family: "Satoshi-Light";
+   font-display: swap;
+   src: url("./font/Satoshi-Light.otf");
+}
+@font-face {
+   font-family: "Satoshi-Bold";
+   font-display: swap;
+   src: url("./font/Satoshi-Bold.otf");
+}
+@font-face {
+   font-family: "Satoshi-Black";
+   font-display: swap;
+   src: url("./font/Satoshi-Black.otf");
+}
+@font-face {
+   font-family: "Satoshi-Italic";
+   font-display: swap;
+   src: url("./font/Satoshi-italic.otf");
 }

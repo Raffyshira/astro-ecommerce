@@ -1,0 +1,42 @@
+---
+import { getProductById } from "@/lib/api.ts";
+import { ProductDetailMobile } from "@/features/product/product.tsx";
+import Layout from "@/layouts/Layout.astro";
+import MainHeader from "@/components/main-components/MainHeader.astro";
+import Container from "@/components/main-components/Container.astro";
+
+import { ArrowUp } from "lucide-react";
+
+
+const { id } = Astro.params;
+let product = null;
+let pageTitle = 'Produk Tidak Ditemukan';
+
+try {
+  product = await getProductById(id);
+  if (product) {
+      pageTitle = product.title;
+  } else {
+      Astro.response.status = 404;
+  }
+} catch (error) {
+    console.error(error);
+    Astro.response.status = 500;
+};
+---
+
+<Layout>
+  <div class="max-w-full mb-5">
+    <ProductDetailMobile
+      id={product.id}
+      price={product.price} 
+      thumbnail={product.images}
+      title={product.title} 
+      discount={product.discountPercentage}
+      rating={product.rating}
+      reviews={product.reviews}
+      desc={product.description}
+      brand={product.brand}
+    client:idle />
+  </div>
+</Layout>

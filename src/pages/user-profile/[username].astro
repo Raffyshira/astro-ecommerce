@@ -3,14 +3,10 @@ import Layout from "@/layouts/Layout.astro";
 import MainHeader from "@/components/main-components/MainHeader.astro";
 import Container from "@/components/main-components/Container.astro";
 import { LogOut } from "lucide-react";
-
-import UserMobile from "@/components/mobile/user/UserMobile.astro";
 ---
 
 <Layout class="bg-slate-100">
-  <MainHeader haveSearch={false}  />
   <div class="sm:hidden">
-    <UserMobile />
     <Container class="bg-white mt-2">
       <button id="btn-logout" class="inline-flex items-center gap-x-2 pt-2 md:hidden">
         <LogOut className="size-5" />
