@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+   Sheet,
+   SheetTrigger,
+   SheetContent,
+   SheetTitle
+} from "@/components/ui/sheet";
 import { useCartStore } from "@/features/cart/CartStore";
-
-import { ShoppingCart, Menu } from "lucide-react";
+import SearchForm from "@/features/search/SearchForm.tsx";
+import { ShoppingCart, Menu, Search } from "lucide-react";
 
 export default function Navbar() {
    const cart = useCartStore(state => state.cart);
@@ -17,7 +22,7 @@ export default function Navbar() {
    return (
       <header className="fixed top-0 z-50 w-full bg-background shadow-sm transition-all duration-300 data-[scrolled=true]:bg-background data-[scrolled=true]:shadow-lg">
          <div className="container max-w-full w-full flex h-16 items-center justify-between px-4 md:px-6">
-            <a href="#" className="flex items-center gap-2">
+            <a href="/" className="flex items-center gap-2">
                <img
                   className="w-10 h-full invert dark:brightness-0"
                   src="/assets/logo-baru.png"
@@ -41,19 +46,37 @@ export default function Navbar() {
                   Contact
                </a>
             </nav>
-            <div className="space-x-3.5 flex justify-end items-center">
-               <Button className="hidden md:inline-flex md:items-center">
-                  Get Started
-               </Button>
-               <Button size="icon" variant="outline" asChild>
-                  <a href="/cart">
-                     <div className="indicator">
+            <div className="space-x-2 flex justify-end items-center">
+               <Sheet>
+                  <SheetTrigger asChild>
+                     <Button
+                        className="sm:hidden"
+                        variant="outline"
+                        size="icon"
+                     >
+                        <Search className="w-5 h-5" />
+                     </Button>
+                  </SheetTrigger>
+                  <SheetContent className="h-full" side="top">
+                     <SheetTitle className="mb-5">Cari Di Acme Inc</SheetTitle>
+                     <SearchForm />
+                  </SheetContent>
+               </Sheet>
+               <div className="indicator">
+                  <Button size="icon" variant="outline" asChild>
+                     <a href="/cart">
                         <ShoppingCart className="w-5 h-5" />
-                        <div className="indicator-item badge badge-secondary-content">
+                        <div className="indicator-item px-1.5 bg-black text-sm text-white rounded-full font-SatoshiMedium">
                            {cartCount}
                         </div>
-                     </div>
-                  </a>
+                     </a>
+                  </Button>
+               </div>
+               <div className="hidden sm:flex">
+                  <SearchForm />
+               </div>
+                              <Button className="hidden md:inline-flex md:items-center">
+                  Get Started
                </Button>
                <Sheet>
                   <SheetTrigger asChild>

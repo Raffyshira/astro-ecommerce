@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Container from "@/components/main-components/Container.astro"
+import SearchResults from '@/features/search/SearchResults.tsx';
+const { query } = Astro.params;
+---
+<Layout>
+  <Container class="mt-14">
+    <SearchResults query={query} client:load />
+  </Container>
+</Layout>

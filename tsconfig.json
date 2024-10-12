@@ -1,11 +1,16 @@
 {
-  "extends": "astro/tsconfigs/base",
-  "compilerOptions": {
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./src/*"]
-        }
-    }
+   "extends": "astro/tsconfigs/base",
+   "compilerOptions": {
+      "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+      "jsx": "react-jsx",
+      "jsxImportSource": "react",
+      "baseUrl": ".",
+      "paths": {
+         "@/*": ["./src/*"]
+      }
+   }
 }

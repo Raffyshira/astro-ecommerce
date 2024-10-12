@@ -24,7 +24,7 @@ const CardProduct: React.FC<ProductProps> = ({
 }) => {
    return (
       <>
-         <Card className="max-w-sm w-50 h-fit border-none overflow-hidden shrink-0 relative">
+         <Card className="max-w-sm w-50 h-fit border-none overflow-hidden shrink-0">
             <a href={`/product/${id}`}>
                <img
                   alt={name}
@@ -32,24 +32,22 @@ const CardProduct: React.FC<ProductProps> = ({
                   src={image}
                />
             </a>
-            <CardContent className="p-4">
-               <h2 className="text-base font-semibold">{name}</h2>
+            <CardContent className="p-3">
+               <Badge variant="destructive">{discount}% Off</Badge>
+               <h2 className="text-base mt-2 font-semibold">{name}</h2>
                <div className="mt-2 flex items-baseline justify-between space-x-1">
-                  <span className="text-sm font-bold">${price}</span>
+                  <span className="text-base font-SatoshiBold">${price}</span>
                   <div className="flex">
-                     <p className="text-sm text-gray-500 line-through">
+                     <p className="text-base text-gray-500 line-through">
                         Rp299.000
                      </p>
-                     <Badge className="absolute left-2 top-2 bg-red-500 text-white">
-                        {discount}%
-                     </Badge>
                   </div>
                </div>
             </CardContent>
-            <CardFooter className="flex flex-col items-start -ml-2.5">
+            <CardFooter className="flex justify-between items-start -ml-2.5">
                <div className="flex items-center">
                   <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                  <span className="ml-1 text-xs">{rating} • 3rb+ terjual</span>
+                  <span className="ml-1 text-sm">{rating} • 3rb+ terjual</span>
                </div>
             </CardFooter>
          </Card>
