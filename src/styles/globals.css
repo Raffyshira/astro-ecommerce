@@ -62,10 +62,14 @@
    }
    body {
       @apply bg-background text-foreground;
+      height: 100lvh;
       font-family: "Satoshi";
    }
    .nav_links {
       @apply font-SatoshiMedium line-clamp-1 text-sm text-foreground hover:text-gray-400 focus:outline-none focus:text-gray-400;
+   }
+   .scrollbar::-webkit-scrollbar {
+      display: none;
    }
 }
 

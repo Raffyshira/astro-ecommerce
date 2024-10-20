@@ -1,7 +1,6 @@
 ---
 import "@/styles/globals.css";
 import { SITE_TITLE, SITE_DESCRIPTION, X_ACCOUNT } from "@/consts.ts";
-import { ViewTransitions } from 'astro:transitions';
 import MainHeader from "@/components/main-components/MainHeader.astro";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -41,7 +40,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:title" content={title || SITE_TITLE} />
     <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
     <meta property="twitter:image" content={Astro.site + "favicon.svg"} />
-    <ViewTransitions />
 	</head>
 	<body>
 	   <MainHeader />

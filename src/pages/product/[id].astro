@@ -1,21 +1,28 @@
 ---
-import { getProductById } from "@/lib/api.ts";
+import { getProductById, getRelatedProducts, getAllProducts } from "@/lib/api.ts";
 import { ProductDetailMobile } from "@/features/product/product.tsx";
+import CardProduct from "@/features/product/card-product.tsx";
 import Layout from "@/layouts/Layout.astro";
 import MainHeader from "@/components/main-components/MainHeader.astro";
 import Container from "@/components/main-components/Container.astro";
 
 import { ArrowUp } from "lucide-react";
 
-
 const { id } = Astro.params;
 let product = null;
+let relatedProducts = [];
+let productRecomend = [];
 let pageTitle = 'Produk Tidak Ditemukan';
 
 try {
   product = await getProductById(id);
   if (product) {
+      console.log('Product Category:', product.category); // Log kategori produk
       pageTitle = product.title;
+      relatedProducts = await getRelatedProducts(product.category, product.id);
+      productRecomend = await getAllProducts(0, 15);
+      productRecomend = productRecomend.sort(() => Math.random() - 0.5);
+      
   } else {
       Astro.response.status = 404;
   }
@@ -27,16 +34,67 @@ try {
 
 <Layout>
   <div class="max-w-full mb-5">
-    <ProductDetailMobile
-      id={product.id}
-      price={product.price} 
-      thumbnail={product.images}
-      title={product.title} 
-      discount={product.discountPercentage}
-      rating={product.rating}
-      reviews={product.reviews}
-      desc={product.description}
-      brand={product.brand}
-    client:idle />
+    <!-- Hanya render komponen jika produk ditemukan -->
+    {product ? (
+      <ProductDetailMobile
+        id={product.id}
+        price={product.price}
+        images={product.images}
+        category={product.category}
+        thumbnail={product.thumbnail}
+        title={product.title}
+        discount={product.discountPercentage}
+        rating={product.rating}
+        reviews={product.reviews}
+        desc={product.description}
+        brand={product.brand}
+      client:idle />
+      <Container>
+        <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2>
+        <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {relatedProducts.length > 0 ? (
+              relatedProducts.map(item => (
+                <CardProduct
+                  key={item.id}
+                  id={item.id}
+                  image={item.images[0]}
+                  discount={item.discountPercentage}
+                  name={item.title}
+                  price={item.price}
+                  description={item.description}
+                  rating={item.rating}
+                  client:visible
+                />
+              ))
+            ) : (
+              <p>Tidak ada produk terkait.</p>
+            )}
+        </div>
+      </Container>
+      <Container>
+        <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2>
+          <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {productRecomend.length > 0 ? (
+              productRecomend.map(item => (
+                <CardProduct
+                  key={item.id}
+                  id={item.id}
+                  image={item.images[0]}
+                  discount={item.discountPercentage}
+                  name={item.title}
+                  price={item.price}
+                  description={item.description}
+                  rating={item.rating}
+                  client:visible
+                />
+              ))
+            ) : (
+              <p>Tidak ada produk terkait.</p>
+            )}
+        </div>
+      </Container>
+    ) : (
+      <p>Produk tidak ditemukan.</p>
+    )}
   </div>
 </Layout>

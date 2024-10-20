@@ -2,10 +2,14 @@
 import { Image } from "astro:assets";
 import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
+import { Button } from "@/components/ui/button.tsx"
 
 import { getSession } from 'auth-astro/server';
 import { getAllProducts, getProductByCategory } from "@/lib/api.ts";
 
+import { TestCarousel } from "@/features/product/ProductCarousel.tsx";
+
+import ProductLists from "../features/product/ProductsLists.tsx";
 import CardProduct from "@/features/product/card-product.tsx";
 import { CardByCategory } from "@/components/card/card-product.tsx"
 import { Button } from "@/components/ui/button.tsx";
@@ -13,7 +17,7 @@ import { Button } from "@/components/ui/button.tsx";
 import LandingPage from "@/assets/images/landing_page.jpg"
 
 const products = await getAllProducts();
-// const productsCategory = await getProductByCategory()
+const productsCategory = await getProductByCategory()
 const session = await getSession(Astro.request);
 
 ---
@@ -41,14 +45,11 @@ const session = await getSession(Astro.request);
 	    <CardByCategory src="/assets/images/travel.png" title="Travel" />
 	  </div>
 	</Container>
-	<Container>
-	  <div class="w-full flex justify-between items-center">
-	    <h2 class="font-SatoshiBold sm:text-2xl">Todays Best Deals For You!</h2>
-	    <a class="font-SatoshiLight hover:underline underline-offset-4 sm:text-xl " href="/">See All</a>
-	  </div>
-	  <div class="max-w-full w-full h-full flex flex-row overflow-x-scroll gap-4 mt-4 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-900">
-	    {products.slice(0, 7).map(item => (
-  	    <CardProduct
+	<Container class="py-0 -mb-12">
+	  <TestCarousel client:load initialScroll={0}>
+      {products.slice(0, 7).map((item, index) => (
+        <CardProduct
+          key={item.id}
           id={item.id}
           image={item.images[0]}
           discount={item.discountPercentage}
@@ -56,10 +57,20 @@ const session = await getSession(Astro.request);
           price={item.price}
           description={item.description}
           rating={item.rating}
-          client:load 
         />
+      ))}
+    </TestCarousel>
+	</Container>
+	<Container class="sticky top-14 bg-white z-40">
+	  <div class="flex flex-row w-full h-full overflow-x-scroll gap-x-3.5 scrollbar">
+	    {productsCategory.slice(0, 8).map(item => (
+	      <a class="shrink-0 rounded-full font-SatoshiMedium border border-slate-500 px-2 rounded-md">{item.name}</a>
 	    ))}
-	  </div> 
+	  </div>
+	</Container>
+	
+	<Container>
+	    <ProductLists client:load />
 	</Container>
 </Layout>
 

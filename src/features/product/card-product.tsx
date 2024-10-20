@@ -24,7 +24,7 @@ const CardProduct: React.FC<ProductProps> = ({
 }) => {
    return (
       <>
-         <Card className="max-w-sm w-50 h-fit border-none overflow-hidden shrink-0">
+         <Card className="max-w-sm shadow-none w-50 h-fit border-none overflow-hidden shrink-0">
             <a href={`/product/${id}`}>
                <img
                   alt={name}

@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useCartStore } from "@/features/cart/CartStore.ts";
 import { Heart, ChevronDown, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge.tsx";
+
+interface PropsTypes {
+   id: number;
+   brand: string;
+   thumbnail: string;
+   name: string;
+   price: number;
+   discount: number;
+}
 
 const Cart: React.FC = () => {
    const cart = useCartStore(state => state.cart);
    const removeFromCart = useCartStore(state => state.removeFromCart);
    const clearCart = useCartStore(state => state.clearCart);
    const updateQuantity = useCartStore(state => state.updateQuantity);
+
+   const [totalHarga, setTotalHarga] = useState(0);
+
+   const calculateDiscountedPrice = (price: number, discount: number) => {
+      return price - (price * discount) / 100;
+   };
 
    const increaseQuantity = (productId: number, currentQuantity: number) => {
       updateQuantity(productId, currentQuantity + 1);
@@ -20,52 +37,63 @@ const Cart: React.FC = () => {
       }
    };
 
+   useEffect(() => {
+      const total = cart.reduce((acc, product) => {
+         const discountedPrice = calculateDiscountedPrice(
+            product.price,
+            product.discountPercentage || 0
+         );
+         return acc + discountedPrice * product.quantity;
+      }, 0);
+      setTotalHarga(total);
+   }, [cart]);
+
    return (
       <div className="mt-14">
          {cart.length === 0 ? (
             <p>Your cart is empty.</p>
          ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-               {cart.map(item => (
-                  <div key={item.id}>
-                     <Card className="max-w-md mx-auto">
-                        <CardContent className="p-4">
+               {cart.map((item: PropsTypes) => (
+                  <div className="border-b pb-2" key={item.id}>
+                     <div className="max-w-md w-full h-full mx-auto ">
+                        <div className="">
                            <div className="flex items-center space-x-2 mb-4">
-                              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                                 <svg
-                                    className="w-4 h-4 text-white"
-                                    fill="none"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                 >
-                                    <path d="M5 13l4 4L19 7"></path>
-                                 </svg>
-                              </div>
-                              <span className="font-semibold text-lg">
-                                 {item.brand}
-                              </span>
+                              {item.brand ? (
+                                 <span className="font-semibold text-lg inline-flex items-center gap-x-1">
+                                    <img
+                                       className="w-6"
+                                       src="/assets/icon/badge_os.png"
+                                       alt="official store"
+                                    />{" "}
+                                    {item.brand}
+                                 </span>
+                              ) : (
+                                 <span className="font-semibold text-lg">
+                                    Acme Inc
+                                 </span>
+                              )}
                            </div>
                            <div className="flex space-x-4">
                               <div className="relative w-24 h-24">
                                  <img
                                     src={item.thumbnail}
                                     alt={item.name}
-                                    className="rounded object-cover"
+                                    className="rounded object-cover bg-slate-100"
                                  />
                               </div>
-                              <div className="flex-1">
+                              <div className="flex-1 space-y-2">
                                  <h3 className="font-semibold text-lg leading-tight">
                                     {item.name}
                                  </h3>
                                  <p className="font-bold text-lg">
                                     ${item.price}
                                  </p>
-                                 <p className="text-sm text-gray-500 line-through">
-                                    {item.discount}
-                                 </p>
+                                 {item.discount ? (
+                                    <Badge variant="secondary">
+                                       {item.discount}% Off
+                                    </Badge>
+                                 ) : null}
                               </div>
                            </div>
                            <div className="flex items-center justify-between mt-4">
@@ -116,14 +144,29 @@ const Cart: React.FC = () => {
                                  </Button>
                               </div>
                            </div>
-                        </CardContent>
-                     </Card>
+                        </div>
+                     </div>
                   </div>
                ))}
                {cart.length > 0 && (
-                  <Button className="font-SatoshiBold" variant="destructive" onClick={clearCart}>
-                     Clear Cart
-                  </Button>
+                  <div className="fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow gap-x-4">
+                     <h3 className="text-end mb-2.5 font-SatoshiMedium text-sm">
+                        Total Harga: ${totalHarga.toFixed(2)}
+                     </h3>
+                     <div className="w-full flex justify-between gap-x-3  items-center">
+                        <Button
+                           className="font-SatoshiBold w-fit"
+                           variant="outline"
+                           onClick={clearCart}
+                        >
+                           <Trash2 className="w-4 h-4 mr-1" />
+                           Clear Cart
+                        </Button>
+                        <Button className="w-full font-SatoshiBold">
+                           Checkout
+                        </Button>
+                     </div>
+                  </div>
                )}
             </div>
          )}
