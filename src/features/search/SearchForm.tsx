@@ -17,7 +17,7 @@ const SearchForm: React.FC = () => {
    } = useSearchStore();
 
    const [showSuggestions, setShowSuggestions] = useState(false);
-   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
    const wrapperRef = useRef<HTMLDivElement | null>(null);
 
    // Handle klik di luar untuk menutup saran

@@ -1,36 +1,22 @@
-import React from "react";
 import { Badge } from "@/components/ui/badge";
+import type { CardProductProps } from "@/types.d.ts";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Star } from "lucide-react";
 
-interface ProductProps {
-   id: number;
-   name: string;
-   price: number;
-   description?: string;
-   image: string;
-   discount?: number;
-   rating: number;
-}
-
-const CardProduct: React.FC<ProductProps> = ({
+const CardProduct: React.FC<CardProductProps> = ({
    id,
    name,
    price,
-   description,
    image,
    discount,
-   rating
+   rating,
+   children
 }) => {
    return (
       <>
-         <Card className="max-w-sm shadow-none w-50 h-fit border-none overflow-hidden shrink-0">
+         <Card className="max-w-sm shadow-none w-50 h-full border-none overflow-hidden shrink-0">
             <a href={`/product/${id}`}>
-               <img
-                  alt={name}
-                  className="h-56 w-full aspect-square object-cover bg-gray-100"
-                  src={image}
-               />
+              {children}
             </a>
             <CardContent className="p-3">
                <Badge variant="destructive">{discount}% Off</Badge>

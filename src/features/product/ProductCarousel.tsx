@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState, createContext } from "react";
+import React, { useEffect, useRef, useState, createContext } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import {
    Carousel,
    CarouselContent,
@@ -11,13 +10,29 @@ import {
 import { type CarouselApi } from "@/components/ui/carousel";
 
 import { MoveLeft, MoveRight } from "lucide-react";
-interface PropsDataImage {
-   dataImage: [];
+
+interface CarouselContextType {
+   onCardClose?: () => void;
+   currentIndex: number;
 }
-export const ProductCarousel = ({ dataImage, className }: PropsDataImage) => {
+
+interface PropsDataImage {
+   dataImage: string[];
+   className: string;
+}
+
+interface TestCarouselProps {
+   initialScroll?: number;
+   children: React.ReactNode;
+}
+
+export const ProductCarousel: React.FC<PropsDataImage> = ({
+   dataImage,
+   className
+}) => {
    const [api, setApi] = useState<CarouselApi>();
-   const [current, setCurrent] = useState(0);
-   const [count, setCount] = useState(0);
+   const [current, setCurrent] = useState<number>(0);
+   const [count, setCount] = useState<number>(0);
 
    useEffect(() => {
       if (!api) {
@@ -43,7 +58,7 @@ export const ProductCarousel = ({ dataImage, className }: PropsDataImage) => {
          >
             <CarouselContent>
                {dataImage.map((item, index) => (
-                  <CarouselItem key={index} className=" w-full bg-slate-100">
+                  <CarouselItem key={index} className=" w-full">
                      <img
                         src={item}
                         className="w-full aspect-square object-cover mx-auto sm:w-96"
@@ -65,15 +80,18 @@ export const ProductCarousel = ({ dataImage, className }: PropsDataImage) => {
    );
 };
 
-export const CarouselContext = createContext({
+export const CarouselContext = createContext<CarouselContextType>({
    onCardClose: () => {},
    currentIndex: 0
 });
 
-export const TestCarousel = ({ initialScroll = 0, children }) => {
-   const carouselRef = useRef(null);
-   const [canScrollLeft, setCanScrollLeft] = useState(false);
-   const [canScrollRight, setCanScrollRight] = useState(true);
+export const TestCarousel: React.FC<TestCarouselProps> = ({
+   initialScroll = 0,
+   children
+}) => {
+   const carouselRef = useRef<HTMLDivElement>(null);
+   const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+   const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
    const currentIndex = 0;
 
    useEffect(() => {

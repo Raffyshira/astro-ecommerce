@@ -9,8 +9,14 @@ import Container from "@/components/main-components/Container.astro";
     <button id="login">Login</button>
 
     <script>
-      const { signIn } = await import("auth-astro/client")
-      document.querySelector("#login").onclick = () => signIn("github", { callbackUrl: "/" })
+      const { signIn } = await import("auth-astro/client");
+    
+      const loginButton = document.querySelector<HTMLButtonElement>("#login"); // Ubah sesuai tipe elemen yang tepat
+    
+      if (loginButton) { // Pengecekan null
+        loginButton.onclick = () => signIn("github", { callbackUrl: "/" });
+      }
     </script>
+
   </Container>
 </BaseLayout>

@@ -1,11 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import MainHeader from "@/components/main-components/MainHeader.astro";
 import Container from "@/components/main-components/Container.astro";
 import { LogOut } from "lucide-react";
 ---
 
-<Layout class="bg-slate-100">
+<Layout>
   <div class="sm:hidden">
     <Container class="bg-white mt-2">
       <button id="btn-logout" class="inline-flex items-center gap-x-2 pt-2 md:hidden">
@@ -17,7 +16,7 @@ import { LogOut } from "lucide-react";
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const { signOut } = await import("auth-astro/client");
-      const logoutButton = document.querySelector("#btn-logout");
+      const logoutButton = document.querySelector<HTMLButtonElement>("#btn-logout");
   
       if (logoutButton) {
         logoutButton.onclick = () => signOut({ callbackUrl: "/" });

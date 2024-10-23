@@ -5,18 +5,17 @@ import MainHeader from "@/components/main-components/MainHeader.astro";
 import { Toaster } from "@/components/ui/toaster";
 
 interface Props {
-	title: string;
-	description: string;
-	class: className;
+	title?: string;
+	description?: string;
 };
 
-const { title, description, class: className }: Props = Astro.props;
+const { title, description }: Props = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 ---
 
 <!doctype html>
-<html data-theme="light" class="scroll-smooth" lang="en">
+<html class="scroll-smooth" lang="en">
 	<head>
 	  <title>{title || SITE_TITLE}</title>
 		<meta charset="UTF-8" />
@@ -43,7 +42,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	</head>
 	<body>
 	   <MainHeader />
-	   <main class:list={[className]}>
+	   <main>
 		  <slot />
 	   </main>
 	   <Toaster client:load />

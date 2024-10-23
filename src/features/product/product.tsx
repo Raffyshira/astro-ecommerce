@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ModalDetailProduk from "@/features/product/ModalDetailProduct.tsx";
+import type { AllProductTypes } from "@/types.d.ts"
 import { ProductCarousel } from "@/features/product/ProductCarousel.tsx";
 import { useCartStore } from "@/features/cart/CartStore.ts";
 import { useToast } from "@/hooks/use-toast";
@@ -11,35 +11,30 @@ import {
    Camera,
    MessagesSquare,
    ChevronRight,
-   Clock3,
    StarIcon,
    ClockIcon
 } from "lucide-react";
 
-interface PropsProduct {
-   id: number;
-   price?: number;
-   discount?: number | null;
-   name: string;
-   rating?: number;
-   reviews?: number;
-   desc?: string;
-   brand: string;
-   thumbnail: string | any;
-   images: [];
+
+interface PropsReview {
+   reviewerName: string;
+   rating: number;
+   date: any;
+   comment: string;
 }
 
-export const ProductDetailMobile: React.FC<PropsProduct> = ({
+export const ProductDetailMobile: React.FC<AllProductTypes> = ({
    id,
    price,
-   discount,
+   discountPercentage = 0,
    title,
-   rating,
+   rating = 0,
    reviews,
    desc,
    brand,
    thumbnail,
    images,
+   sku,
    category
 }) => {
    const addToCart = useCartStore(state => state.addToCart);
@@ -58,7 +53,8 @@ export const ProductDetailMobile: React.FC<PropsProduct> = ({
          quantity: 1,
          brand,
          thumbnail,
-         discount
+         sku,
+         discountPercentage
       });
       toast({
          title: "Yeay, Product Mu Sudah Di Keranjang"
@@ -75,7 +71,7 @@ export const ProductDetailMobile: React.FC<PropsProduct> = ({
                      Rp.299.000
                   </p>
                   <p className="text-sm sm:text-base text-red-500 font-bold">
-                     {discount}%
+                     {discountPercentage}%
                   </p>
                </div>
                <div className="w-full flex justify-between items-center mt-1">
@@ -152,17 +148,25 @@ export const ProductDetailMobile: React.FC<PropsProduct> = ({
                <div className="flex justify-between items-center ">
                   <div className="flex space-x-4 items-center">
                      <div className="flex shrink-0">
-                        <div className="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center">
-                           <span className="text-white text-xl font-bold">
-                              S
-                           </span>
+                        <div className="w-16 h-16 bg-blue-300 rounded-full flex items-center justify-center">
+                           {brand ? (
+                              <span className="text-white text-xl font-bold">
+                                 {brand.charAt(0)}
+                              </span>
+                           ) : null}
                         </div>
                      </div>
                      <div className="flex-1">
                         <div className="flex items-center">
-                           <h2 className="text-xl font-semibold text-gray-800">
-                              SmartClick
-                           </h2>
+                           {brand ? (
+                              <h2 className="text-xl font-semibold text-gray-800">
+                                 {brand}
+                              </h2>
+                           ) : (
+                              <h2 className="text-xl font-semibold text-gray-800">
+                                 Acme Inc
+                              </h2>
+                           )}
                         </div>
                         <div className="flex items-center">
                            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
@@ -215,7 +219,7 @@ export const ProductDetailMobile: React.FC<PropsProduct> = ({
                   </span>
                </div>
                <div className="border-t pt-4">
-                  {reviews.map((review, index) => (
+                  {reviews.map((review: PropsReview, index: number) => (
                      <div key={index} className="mb-4">
                         <div className="flex items-center mb-2">
                            <div className="w-10 h-10 bg-blue-300 rounded-full mr-3"></div>
@@ -251,7 +255,7 @@ export const ProductDetailMobile: React.FC<PropsProduct> = ({
                   ))}
                </div>
             </div>
-            {/* <div
+            <div
                className="flex justify-between  items-center fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow gap-x-4
             "
             >
@@ -268,7 +272,7 @@ export const ProductDetailMobile: React.FC<PropsProduct> = ({
                >
                   Masukkan Keranjang
                </Button>
-            </div>*/}
+            </div>
          </div>
       </div>
    );

@@ -34,10 +34,11 @@ export default function ProductLists() {
       setLoading(true);
       try {
          const newProducts = await getAllProducts((page - 1) * 10);
-         if (newProducts.length === 0) {
+         const randomProduct = newProducts.sort(() => Math.random() - 0.5);
+         if (randomProduct.length === 0) {
             setHasMore(false);
          } else {
-            setProducts(prevProducts => [...prevProducts, ...newProducts]);
+            setProducts(prevProducts => [...prevProducts, ...randomProduct]);
             setPage(prevPage => prevPage + 1);
          }
       } catch (error) {
@@ -63,15 +64,22 @@ export default function ProductLists() {
                   className="mb-4"
                >
                   <CardProduct
-                     key={product.id}
                      id={product.id}
-                     image={product.images[0]}
+                     image={product.thumbnail}
                      discount={product.discountPercentage}
                      name={product.title}
                      price={product.price}
-                     description={product.description}
                      rating={product.rating}
-                  />
+                  >
+                     <img
+                        alt={product.title}
+                        className="w-full h-fit w-full aspect-square object-cover bg-gray-100"
+                        src={product.thumbnail}
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                     />
+                  </CardProduct>
                </div>
             ))}
          </div>

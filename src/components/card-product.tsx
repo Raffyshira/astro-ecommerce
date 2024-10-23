@@ -1,4 +1,4 @@
-import { Card, CardTitle } from "@/components/ui/card.tsx";
+import { Card } from "@/components/ui/card.tsx";
 
 interface CardByCategoryProps {
    src: string;

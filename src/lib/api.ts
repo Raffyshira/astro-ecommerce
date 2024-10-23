@@ -1,23 +1,37 @@
+import type { AllProductTypes } from "../types.d.ts";
+
 export const prerender = false;
+
 const API_BASE_URL = "https://dummyjson.com/products";
 
 /**
  * Mengambil semua produk dari API
  * @returns {Promise<Array>} Array produk
  */
-export async function getAllProducts(offset = 0, limit = 30) {
+export async function getAllProducts(
+   offset: number = 0,
+   limit: number = 15
+): Promise<AllProductTypes[]> {
+   const cacheKey = `product-${limit}-${offset}`;
+   const isBrowser = typeof window !== "undefined";
+   if (isBrowser && localStorage.getItem(cacheKey)) {
+      return JSON.parse(localStorage.getItem(cacheKey) || "[]");
+   }
    try {
       const response = await fetch(
          `${API_BASE_URL}?limit=${limit}&skip=${offset}`
-      ); // Menyesuaikan limit sesuai kebutuhan
+      );
       if (!response.ok) {
          throw new Error("Gagal mengambil data produk");
       }
       const data = await response.json();
-      return data.products; // Mengembalikan array produk
+      if (isBrowser) {
+         localStorage.setItem(cacheKey, JSON.stringify(data.products));
+      }
+      return data.products as AllProductTypes[]; // Mengembalikan array produk
    } catch (error) {
       console.error(error);
-      return [];
+      return []; // Mengembalikan array kosong jika terjadi error
    }
 }
 
@@ -26,7 +40,15 @@ export async function getAllProducts(offset = 0, limit = 30) {
  * @param {string | number} id - ID produk
  * @returns {Promise<Object | null>} Data produk atau null jika tidak ditemukan
  */
-export async function getProductById(id) {
+export async function getProductById(
+   id: number | string
+): Promise<AllProductTypes | null> {
+   const cacheKey = `product-${id}`;
+   const isBrowser = typeof window !== "undefined";
+   if (isBrowser && localStorage.getItem(cacheKey)) {
+      return JSON.parse(localStorage.getItem(cacheKey) || "[]");
+   }
+
    try {
       const response = await fetch(`${API_BASE_URL}/${id}`);
       if (response.status === 404) {
@@ -36,6 +58,9 @@ export async function getProductById(id) {
          throw new Error("Gagal mengambil data produk");
       }
       const product = await response.json();
+      if (isBrowser) {
+         localStorage.setItem(cacheKey, JSON.stringify(data.products));
+      }
       return product;
    } catch (error) {
       console.error(error);
@@ -43,7 +68,12 @@ export async function getProductById(id) {
    }
 }
 
-export async function getProductByCategory() {
+export async function getProductByCategory(): Promise<any | null> {
+   const cacheKey = "categories";
+   const isBrowser = typeof window !== "undefined";
+   if (isBrowser && localStorage.getItem(cacheKey)) {
+      return JSON.parse(localStorage.getItem(cacheKey) || "[]");
+   }
    try {
       const response = await fetch(`${API_BASE_URL}/categories`);
       if (response.status === 404) {
@@ -53,6 +83,9 @@ export async function getProductByCategory() {
          throw new Error("Gagal mengambil data produk");
       }
       const category = await response.json();
+      if (isBrowser) {
+         localStorage.setItem(cacheKey, JSON.stringify(category));
+      }
       return category;
    } catch (error) {
       console.error(error);
@@ -63,7 +96,14 @@ export async function getProductByCategory() {
 export async function getRelatedProducts(
    category: string,
    excludeProductId: number
-) {
+): Promise<any[]> {
+   const cacheKey = `related-products-${category}`;
+   const isBrowser = typeof window !== "undefined";
+   if (isBrowser && localStorage.getItem(cacheKey)) {
+      return JSON.parse(localStorage.getItem(cacheKey) || "[]").filter(
+         (product: any) => product.id !== excludeProductId
+      );
+   }
    try {
       const response = await fetch(
          `${API_BASE_URL}/category/${category}?limit=10`
@@ -72,7 +112,12 @@ export async function getRelatedProducts(
          throw new Error("Gagal mengambil produk terkait");
       }
       const data = await response.json();
-      return data.products.filter(product => product.id !== excludeProductId);
+      if (isBrowser) {
+         localStorage.setItem(cacheKey, JSON.stringify(data.products));
+      }
+      return data.products.filter(
+         (product: any) => product.id !== excludeProductId
+      );
    } catch (error) {
       console.error("Error fetching related products:", error);
       return [];

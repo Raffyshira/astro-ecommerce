@@ -20,7 +20,7 @@ export default function Navbar() {
    }, [cart]);
 
    return (
-      <header className="fixed top-0 z-50 w-full bg-background border-b transition-all duration-300 data-[scrolled=true]:bg-background data-[scrolled=true]:shadow-lg">
+      <header className="fixed top-0 z-50 w-full bg-white border-b transition-all duration-300 data-[scrolled=true]:bg-white data-[scrolled=true]:shadow-lg">
          <div className="container max-w-full w-full flex h-16 items-center justify-between px-4 md:px-6">
             <a href="/" className="flex items-center gap-2">
                <img

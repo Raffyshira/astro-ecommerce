@@ -1,11 +1,15 @@
 // src/features/search/SearchStore.ts
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import axios from "axios";
 
 interface Product {
    id: number;
    title: string;
+   rating: number;
+   price: number;
+   discountPercentage: number;
+   images: string[];
 }
 
 interface APIResponse {
@@ -21,6 +25,7 @@ interface SearchState {
    loading: boolean;
    error: string | null;
    suggestions: string[];
+   fetchSuggestions: any;
    suggestionsLoading: boolean;
    suggestionsError: string | null;
    setSearchTerm: (term: string) => void;
@@ -95,8 +100,8 @@ export const useSearchStore = create<SearchState>()(
          }
       }),
       {
-         name: "search-storage", // Nama key di localStorage
-         getStorage: () => localStorage // Opsional, default adalah localStorage
+         name: "search-storage",
+         storage: createJSONStorage(() => localStorage)
       }
    )
 );

@@ -4,22 +4,25 @@ import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
 import { Button } from "@/components/ui/button.tsx"
 
-import { getSession } from 'auth-astro/server';
 import { getAllProducts, getProductByCategory } from "@/lib/api.ts";
+import type { AllProductTypes } from "@/types.d.ts";
 
 import { TestCarousel } from "@/features/product/ProductCarousel.tsx";
 
 import ProductLists from "../features/product/ProductsLists.tsx";
 import CardProduct from "@/features/product/card-product.tsx";
-import { CardByCategory } from "@/components/card/card-product.tsx"
-import { Button } from "@/components/ui/button.tsx";
+import { CardByCategory } from "@/components/card-product.tsx"
 
-import LandingPage from "@/assets/images/landing_page.jpg"
+import LandingPage from "@/assets/images/landing_page.jpg";
+
+
+interface CardCategoryProps {
+  name: string;
+};
+
 
 const products = await getAllProducts();
 const productsCategory = await getProductByCategory()
-const session = await getSession(Astro.request);
-
 ---
 
 <Layout>
@@ -37,40 +40,48 @@ const session = await getSession(Astro.request);
 	    <a class="font-SatoshiLight hover:underline underline-offset-4 sm:text-xl " href="/">See All</a>
 	  </div>
 	  <div class="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3">
-	    <CardByCategory src="/assets/images/Furniture.png" title="Furniture" />
-	    <CardByCategory src="/assets/images/handbag.png" title="HandBag" />
-	    <CardByCategory src="/assets/images/books.png" title="Books" />
-	    <CardByCategory src="/assets/images/tech.png" title="Tech" />
-	    <CardByCategory src="/assets/images/sneakers.png" title="Sneakers" />
-	    <CardByCategory src="/assets/images/travel.png" title="Travel" />
+	    <CardByCategory src="/assets/images/Furniture.png" title="Furniture" client:load />
+	    <CardByCategory src="/assets/images/handbag.png" title="HandBag" client:load />
+	    <CardByCategory src="/assets/images/books.png" title="Books" client:load />
+	    <CardByCategory src="/assets/images/tech.png" title="Tech" client:load />
+	    <CardByCategory src="/assets/images/sneakers.png" title="Sneakers" client:load />
+	    <CardByCategory src="/assets/images/travel.png" title="Travel" client:load />
 	  </div>
 	</Container>
 	<Container class="py-0 -mb-12">
 	  <TestCarousel client:load initialScroll={0}>
-      {products.slice(0, 7).map((item, index) => (
+      {products.slice(0, 7).map((item: AllProductTypes) => (
         <CardProduct
-          key={item.id}
           id={item.id}
-          image={item.images[0]}
+          image={item.thumbnail}
           discount={item.discountPercentage}
           name={item.title}
           price={item.price}
-          description={item.description}
           rating={item.rating}
-        />
+        >
+          <Image
+            alt={item.title}
+            className="w-full h-fit w-full aspect-square object-cover bg-gray-100"
+            src={item.thumbnail}
+            width="200"
+            height="200"
+            loading="lazy"
+          />
+        </CardProduct>
       ))}
     </TestCarousel>
 	</Container>
 	<Container class="sticky top-14 bg-white z-40">
 	  <div class="flex flex-row w-full h-full overflow-x-scroll gap-x-3.5 scrollbar">
-	    {productsCategory.slice(0, 8).map(item => (
+	    {productsCategory.slice(0, 8).map((item: CardCategoryProps) => (
 	      <a class="shrink-0 rounded-full font-SatoshiMedium border border-slate-500 px-2 rounded-md">{item.name}</a>
 	    ))}
 	  </div>
 	</Container>
 	
 	<Container>
-	    <ProductLists client:load />
+	  <ProductLists client:load />
+
 	</Container>
 </Layout>
 
