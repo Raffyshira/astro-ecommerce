@@ -1,7 +1,7 @@
-import { c as createComponent, r as renderTemplate, a as renderComponent } from '../chunks/astro/server_APlSdSn6.mjs';
+import { c as createComponent, r as renderTemplate, a as renderComponent } from '../chunks/astro/server_B7VyQGdv.mjs';
 import 'kleur/colors';
 import 'html-escaper';
-import { u as useCartStore, B as Badge, a as Button, $ as $$Container, b as $$Layout } from '../chunks/badge_CpRJWjHR.mjs';
+import { u as useCartStore, a as useToast, B as Badge, b as Button, $ as $$Container, c as $$Layout } from '../chunks/badge_DmT3D4ir.mjs';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import { useState, useEffect } from 'react';
 import { Trash2, Heart } from 'lucide-react';
@@ -12,6 +12,13 @@ const Cart = () => {
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const clearCart = useCartStore((state) => state.clearCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const { toast } = useToast();
+  const handleNotWork = () => {
+    toast({
+      title: "Kalau mau beli di tokopedia atau shoppe, jangan disini :)",
+      variant: "destructive"
+    });
+  };
   const [totalHarga, setTotalHarga] = useState(0);
   const calculateDiscountedPrice = (price, discountPercentage) => {
     return price - price * discountPercentage / 100;
@@ -35,7 +42,11 @@ const Cart = () => {
     setTotalHarga(total);
   }, [cart]);
   return /* @__PURE__ */ jsx("div", { className: "mt-14", children: cart.length === 0 ? /* @__PURE__ */ jsx("p", { className: "text-center text-2xl font-SatoshiBold", children: "Your cart is empty." }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx("div", { className: "mb-5", children: /* @__PURE__ */ jsx("h2", { className: "text-2xl font-SatoshiBold", children: "Keranjang" }) }),
+    /* @__PURE__ */ jsx("div", { className: "mb-5", children: /* @__PURE__ */ jsxs("h2", { className: "text-xl font-SatoshiBold", children: [
+      "Keranjang (",
+      cart.length,
+      ")"
+    ] }) }),
     /* @__PURE__ */ jsxs("div", { className: "w-full h-fit grid grid-cols-1 sm:grid-cols-3 gap-4 ", children: [
       /* @__PURE__ */ jsx("div", { className: "w-full flex flex-col gap-4 sm:col-span-2", children: cart.map((item) => /* @__PURE__ */ jsx(
         "div",
@@ -166,11 +177,18 @@ const Cart = () => {
               ]
             }
           ),
-          /* @__PURE__ */ jsxs(Button, { className: "w-full font-SatoshiBold", children: [
-            "Checkout (",
-            cart.length,
-            ")"
-          ] })
+          /* @__PURE__ */ jsxs(
+            Button,
+            {
+              onClick: handleNotWork,
+              className: "w-full font-SatoshiBold",
+              children: [
+                "Checkout (",
+                cart.length,
+                ")"
+              ]
+            }
+          )
         ] })
       ] })
     ] })

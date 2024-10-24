@@ -15,7 +15,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html class="scroll-smooth" lang="en">
+<html class="scroll-smooth" lang="id">
 	<head>
 	  <title>{title || SITE_TITLE}</title>
 		<meta charset="UTF-8" />
@@ -23,7 +23,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta name="viewport" content="width=device-width" />
 		<meta name="robots" content="index, follow" />
 		<meta name="googlebot" content="index, follow" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/assets/logo-baru.png" />
 		<link rel="canonical" href={canonicalURL} />
 		<meta name="generator" content={Astro.generator} />
 		
@@ -31,14 +31,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:title" content={title || SITE_TITLE} />
 		<meta property="og:description" content={description || SITE_DESCRIPTION} />
 		<meta property="og:url" content={Astro.url} />
-		<meta property="og:image" content={Astro.site + "favicon.svg"} />
+		<meta property="og:image" content={Astro.site + "logo-baru.png"} />
     <meta property="og:locale" content="id" />
     
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content={X_ACCOUNT} />
     <meta property="twitter:title" content={title || SITE_TITLE} />
     <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
-    <meta property="twitter:image" content={Astro.site + "favicon.svg"} />
+    <meta property="twitter:image" content={Astro.site + "logo-baru.png"} />
 	</head>
 	<body>
 	   <MainHeader />

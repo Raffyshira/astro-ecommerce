@@ -1,13 +1,12 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from '../../chunks/astro/server_APlSdSn6.mjs';
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from '../../chunks/astro/server_B7VyQGdv.mjs';
 import 'kleur/colors';
 import 'html-escaper';
 import '@astrojs/internal-helpers/path';
-import '../../chunks/astro/assets-service_Cx2YwZUn.mjs';
-import { $ as $$Image } from '../../chunks/_astro_assets_BJPmXjLT.mjs';
-import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from '../../chunks/card-product_MUTKjlaG.mjs';
+import { $ as $$Image } from '../../chunks/_astro_assets_C9Nkrvwx.mjs';
+import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from '../../chunks/card-product_Czv-Vd9W.mjs';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import 'react';
-import { u as useCartStore, c as useToast, a as Button, b as $$Layout, $ as $$Container } from '../../chunks/badge_CpRJWjHR.mjs';
+import { u as useCartStore, a as useToast, b as Button, c as $$Layout, $ as $$Container } from '../../chunks/badge_DmT3D4ir.mjs';
 import { Heart, Star, Camera, MessagesSquare, ChevronRight, StarIcon, ClockIcon } from 'lucide-react';
 export { renderers } from '../../renderers.mjs';
 
@@ -215,7 +214,7 @@ const ProductDetailMobile = ({
   ] });
 };
 
-const $$Astro = createAstro("http://localhost:4321/");
+const $$Astro = createAstro("https://astroecommerce.netlify.app/");
 const $$id = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$id;
@@ -226,7 +225,6 @@ const $$id = createComponent(async ($$result, $$props, $$slots) => {
   if (id !== void 0 && (typeof id === "string" || typeof id === "number")) {
     product = await getProductById(id);
     if (product) {
-      console.log("Product Category:", product.category);
       relatedProducts = await getRelatedProducts(product.category, product.id);
       productRecomend = await getAllProducts(0, 15);
       productRecomend = productRecomend.sort(() => Math.random() - 0.5);
@@ -237,8 +235,8 @@ const $$id = createComponent(async ($$result, $$props, $$slots) => {
     Astro2.response.status = 400;
   }
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": product?.title || "Astro Ecommerce", "description": product?.description || "Acme Inc" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="max-w-full mb-5"> <!-- Hanya render komponen jika produk ditemukan --> ${product ? renderTemplate`${renderComponent($$result2, "ProductDetailMobile", ProductDetailMobile, { "id": product.id, "price": product.price, "images": product.images, "category": product.category, "thumbnail": product.thumbnail, "title": product.title, "discountPercentage": product.discountPercentage, "rating": product.rating, "reviews": product.reviews, "description": product.description, "sku": product.sku, "brand": product.brand, "client:idle": true, "client:component-hydration": "idle", "client:component-path": "@/features/product/product.tsx", "client:component-export": "ProductDetailMobile" })}
-      ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4"> ${relatedProducts.length > 0 ? relatedProducts.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating }, { "default": ($$result4) => renderTemplate` ${renderComponent($$result4, "Image", $$Image, { "alt": item.title, "class": "w-full h-fit w-full aspect-square object-cover bg-gray-100", "src": item.thumbnail, "width": "200", "height": "200", "loading": "lazy" })} ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}
-      ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4"> ${productRecomend.length > 0 ? productRecomend.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating }, { "default": ($$result4) => renderTemplate` ${renderComponent($$result4, "Image", $$Image, { "alt": item.title, "class": "w-full h-fit w-full aspect-square object-cover bg-gray-100", "src": item.thumbnail, "width": "200", "height": "200", "loading": "lazy" })} ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}` : renderTemplate`<p>Produk tidak ditemukan.</p>`} </div> ` })}`;
+      ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4"> ${relatedProducts.length > 0 ? relatedProducts.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` ${renderComponent($$result4, "Image", $$Image, { "alt": item.title, "class": "w-full h-fit w-full aspect-square object-cover bg-gray-100", "src": item.thumbnail, "width": "200", "height": "200", "loading": "lazy" })} ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}
+      ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 mb-10 md:grid-cols-4 gap-4"> ${productRecomend.length > 0 ? productRecomend.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` ${renderComponent($$result4, "Image", $$Image, { "alt": item.title, "class": "w-full h-fit w-full aspect-square object-cover bg-gray-100", "src": item.thumbnail, "width": "200", "height": "200", "loading": "lazy" })} ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}` : renderTemplate`<p>Produk tidak ditemukan.</p>`} </div> ` })}`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/product/[id].astro", void 0);
 
 const $$file = "/data/data/com.termux/files/home/astro-ecommerce/src/pages/product/[id].astro";

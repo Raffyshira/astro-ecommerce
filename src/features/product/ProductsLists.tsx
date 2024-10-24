@@ -56,7 +56,7 @@ export default function ProductLists() {
 
    return (
       <div>
-         <div className="columns-2 sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
+         <div className="w-full h-fit columns-2 sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
             {products.map((product, index) => (
                <div
                   key={product.id}
@@ -69,6 +69,8 @@ export default function ProductLists() {
                      name={product.title}
                      price={product.price}
                      rating={product.rating}
+                     className="shrink-0 h-fit"
+                     isLineClamp={false}
                   >
                      <img
                         alt={product.title}

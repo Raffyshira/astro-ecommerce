@@ -33,7 +33,7 @@ export default function Navbar() {
                <span className="text-lg font-SatoshiBold">Acme Inc</span>
             </a>
             <nav className="hidden gap-6 text-sm font-medium md:flex">
-               <a href="#" className="transition-colors hover:text-primary">
+               <a href="/" className="transition-colors hover:text-primary">
                   Home
                </a>
                <a href="#" className="transition-colors hover:text-primary">
@@ -53,6 +53,7 @@ export default function Navbar() {
                         className="sm:hidden"
                         variant="outline"
                         size="icon"
+                        aria-label="search-button"
                      >
                         <Search className="w-5 h-5" />
                      </Button>
@@ -105,7 +106,7 @@ export default function Navbar() {
                         </a>
                         <nav className="grid gap-4">
                            <a
-                              href="#"
+                              href="/"
                               className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
                            >
                               Home

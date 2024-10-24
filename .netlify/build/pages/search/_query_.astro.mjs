@@ -1,10 +1,10 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from '../../chunks/astro/server_APlSdSn6.mjs';
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from '../../chunks/astro/server_B7VyQGdv.mjs';
 import 'kleur/colors';
 import 'html-escaper';
-import { d as cn, e as useSearchStore, B as Badge, $ as $$Container, b as $$Layout } from '../../chunks/badge_CpRJWjHR.mjs';
+import { d as cn, e as useSearchStore, B as Badge, $ as $$Container, c as $$Layout } from '../../chunks/badge_DmT3D4ir.mjs';
 import { jsx, Fragment, jsxs } from 'react/jsx-runtime';
 import { useEffect } from 'react';
-import { C as Card, a as CardContent, b as CardFooter } from '../../chunks/card_yZwKObQ8.mjs';
+import { C as Card, a as CardContent, b as CardFooter } from '../../chunks/card_DPGYi5l5.mjs';
 import { Star } from 'lucide-react';
 export { renderers } from '../../renderers.mjs';
 
@@ -78,7 +78,7 @@ const SearchResult = ({ query }) => {
   ] }) });
 };
 
-const $$Astro = createAstro("http://localhost:4321/");
+const $$Astro = createAstro("https://astroecommerce.netlify.app/");
 const $$query = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$query;

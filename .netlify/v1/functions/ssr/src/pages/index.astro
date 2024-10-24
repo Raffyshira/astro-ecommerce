@@ -57,6 +57,7 @@ const productsCategory = await getProductByCategory()
           name={item.title}
           price={item.price}
           rating={item.rating}
+          className="w-40 sm:w-50"
         >
           <Image
             alt={item.title}
@@ -73,7 +74,7 @@ const productsCategory = await getProductByCategory()
 	<Container class="sticky top-14 bg-white z-40">
 	  <div class="flex flex-row w-full h-full overflow-x-scroll gap-x-3.5 scrollbar">
 	    {productsCategory.slice(0, 8).map((item: CardCategoryProps) => (
-	      <a class="shrink-0 rounded-full font-SatoshiMedium border border-slate-500 px-2 rounded-md">{item.name}</a>
+	      <a href="/" class="shrink-0 rounded-full font-SatoshiMedium border border-slate-500 px-2 rounded-md">{item.name}</a>
 	    ))}
 	  </div>
 	</Container>

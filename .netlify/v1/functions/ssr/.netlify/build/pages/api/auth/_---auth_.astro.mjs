@@ -22,7 +22,7 @@ const authConfig = defineConfig({
   }
 });
 
-const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "SITE": "http://localhost:4321/", "SSR": true};
+const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "SITE": "https://astroecommerce.netlify.app/", "SSR": true};
 const actions = [
   "providers",
   "session",

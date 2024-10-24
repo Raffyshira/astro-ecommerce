@@ -22,4 +22,6 @@ export interface CardProductProps {
    discount?: number;
    rating: number;
    children: React.ReactNode;
+   className: string;
+   isLineClamp?: boolean;
 }

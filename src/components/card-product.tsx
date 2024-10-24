@@ -13,7 +13,7 @@ export const CardByCategory = ({ src, title }: CardByCategoryProps) => {
                alt={title}
                loading="lazy"
                width="1600"
-               height="400"
+               height="600"
                className="rounded-xl w-full h-full"
             />
             <h3 className="absolute top-5 left-5 z-10 font-SatoshiBold text-2xl text-white">

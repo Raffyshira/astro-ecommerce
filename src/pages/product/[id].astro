@@ -15,7 +15,6 @@ let productRecomend: AllProductTypes[] = [];
 if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
     product = await getProductById(id);
   if (product) {
-      console.log('Product Category:', product.category); // Log kategori produk
       relatedProducts = await getRelatedProducts(product.category, product.id);
       productRecomend = await getAllProducts(0, 15);
       productRecomend = productRecomend.sort(() => Math.random() - 0.5);
@@ -57,6 +56,7 @@ if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
                   name={item.title}
                   price={item.price}
                   rating={item.rating}
+                  className="w-40 shrink-0 sm:w-full"
                 >
                   <Image
                     alt={item.title}
@@ -75,7 +75,7 @@ if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
       </Container>
       <Container>
         <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2>
-          <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 mb-10 md:grid-cols-4 gap-4">
             {productRecomend.length > 0 ? (
               productRecomend.map((item: 
               AllProductTypes) => (
@@ -85,6 +85,7 @@ if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
                   name={item.title}
                   price={item.price}
                   rating={item.rating}
+                  className="w-40 shrink-0 sm:w-full"
                 >
                   <Image
                     alt={item.title}
