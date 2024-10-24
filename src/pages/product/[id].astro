@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { getProductById, getRelatedProducts, getAllProducts } from "@/lib/api.ts";
 import type { AllProductTypes } from "@/types.d.ts";
 import { ProductDetailMobile } from "@/features/product/product.tsx";
@@ -58,7 +57,7 @@ if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
                   rating={item.rating}
                   className="w-40 shrink-0 sm:w-full"
                 >
-                  <Image
+                  <img
                     alt={item.title}
                     class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
                     src={item.thumbnail}
@@ -87,7 +86,7 @@ if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
                   rating={item.rating}
                   className="w-40 shrink-0 sm:w-full"
                 >
-                  <Image
+                  <img
                     alt={item.title}
                     class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
                     src={item.thumbnail}

@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
-import { Button } from "@/components/ui/button.tsx"
+import { Button } from "@/components/ui/button.tsx";
 
 import { getAllProducts, getProductByCategory } from "@/lib/api.ts";
 import type { AllProductTypes } from "@/types.d.ts";
@@ -59,7 +59,7 @@ const productsCategory = await getProductByCategory()
           rating={item.rating}
           className="w-40 sm:w-50"
         >
-          <Image
+          <img
             alt={item.title}
             class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
             src={item.thumbnail}
