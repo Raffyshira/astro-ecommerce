@@ -1,0 +1,108 @@
+---
+import { Image } from "astro:assets";
+import { getProductById, getRelatedProducts, getAllProducts } from "@/lib/api.ts";
+import type { AllProductTypes } from "@/types.d.ts";
+import { ProductDetailMobile } from "@/features/product/product.tsx";
+import CardProduct from "@/features/product/card-product.tsx";
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/main-components/Container.astro";
+
+const { id } = Astro.params;
+let product: AllProductTypes | null = null;
+let relatedProducts: AllProductTypes[] = [];
+let productRecomend: AllProductTypes[] = [];
+
+if (id !== undefined && (typeof id === 'string' || typeof id === 'number')) {
+    product = await getProductById(id);
+  if (product) {
+      console.log('Product Category:', product.category); // Log kategori produk
+      relatedProducts = await getRelatedProducts(product.category, product.id);
+      productRecomend = await getAllProducts(0, 15);
+      productRecomend = productRecomend.sort(() => Math.random() - 0.5);
+  } else {
+      Astro.response.status = 404;
+  }
+} else {
+  Astro.response.status = 400; // Bad Request jika id tidak valid
+}
+
+---
+
+<Layout title={product?.title || "Astro Ecommerce"} description={product?.description || "Acme Inc"}>
+  <div class="max-w-full mb-5">
+    <!-- Hanya render komponen jika produk ditemukan -->
+    {product ? (
+      <ProductDetailMobile
+        id={product.id}
+        price={product.price}
+        images={product.images}
+        category={product.category}
+        thumbnail={product.thumbnail}
+        title={product.title}
+        discountPercentage={product.discountPercentage}
+        rating={product.rating}
+        reviews={product.reviews}
+        description={product.description}
+        sku={product.sku}
+        brand={product.brand}
+      client:idle />
+      <Container>
+        <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2>
+        <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {relatedProducts.length > 0 ? (
+              relatedProducts.map((item: AllProductTypes) => (
+                <CardProduct
+                  id={item.id}
+                  discount={item.discountPercentage}
+                  name={item.title}
+                  price={item.price}
+                  rating={item.rating}
+                >
+                  <Image
+                    alt={item.title}
+                    class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
+                    src={item.thumbnail}
+                    width="200"
+                    height="200"
+                    loading="lazy"
+                  />
+               </CardProduct>
+              ))
+            ) : (
+              <p>Tidak ada produk terkait.</p>
+            )}
+        </div>
+      </Container>
+      <Container>
+        <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2>
+          <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {productRecomend.length > 0 ? (
+              productRecomend.map((item: 
+              AllProductTypes) => (
+                <CardProduct
+                  id={item.id}
+                  discount={item.discountPercentage}
+                  name={item.title}
+                  price={item.price}
+                  rating={item.rating}
+                >
+                  <Image
+                    alt={item.title}
+                    class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
+                    src={item.thumbnail}
+                    width="200"
+                    height="200"
+                    loading="lazy"
+                  />
+               </CardProduct>
+              ))
+            ) : (
+              <p>Tidak ada produk terkait.</p>
+            )}
+        </div>
+      </Container>
+    ) : (
+      <p>Produk tidak ditemukan.</p>
+    )}
+  </div>
+</Layout>

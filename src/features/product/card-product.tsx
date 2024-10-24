@@ -7,7 +7,6 @@ const CardProduct: React.FC<CardProductProps> = ({
    id,
    name,
    price,
-   image,
    discount,
    rating,
    children

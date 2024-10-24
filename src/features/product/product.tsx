@@ -30,7 +30,7 @@ export const ProductDetailMobile: React.FC<AllProductTypes> = ({
    title,
    rating = 0,
    reviews,
-   desc,
+   description,
    brand,
    thumbnail,
    images,
@@ -137,7 +137,7 @@ export const ProductDetailMobile: React.FC<AllProductTypes> = ({
                      <h3 className="mb-2 text-xl font-bold">
                         Deskripsi produk
                      </h3>
-                     <p className="mb-3.5">{desc}</p>
+                     <p className="mb-3.5">{description}</p>
                      <a className="text-green-500" href="/">
                         Baca Selengkapnya
                      </a>

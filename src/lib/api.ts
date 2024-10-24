@@ -46,7 +46,7 @@ export async function getProductById(
    const cacheKey = `product-${id}`;
    const isBrowser = typeof window !== "undefined";
    if (isBrowser && localStorage.getItem(cacheKey)) {
-      return JSON.parse(localStorage.getItem(cacheKey) || "[]");
+      return JSON.parse(localStorage.getItem(cacheKey) || "null");
    }
 
    try {
@@ -57,11 +57,11 @@ export async function getProductById(
       if (!response.ok) {
          throw new Error("Gagal mengambil data produk");
       }
-      const product = await response.json();
+      const data = await response.json();
       if (isBrowser) {
-         localStorage.setItem(cacheKey, JSON.stringify(data.products));
+         localStorage.setItem(cacheKey, JSON.stringify(data));
       }
-      return product;
+      return data as AllProductTypes;
    } catch (error) {
       console.error(error);
       return null;
@@ -72,7 +72,7 @@ export async function getProductByCategory(): Promise<any | null> {
    const cacheKey = "categories";
    const isBrowser = typeof window !== "undefined";
    if (isBrowser && localStorage.getItem(cacheKey)) {
-      return JSON.parse(localStorage.getItem(cacheKey) || "[]");
+      return JSON.parse(localStorage.getItem(cacheKey) || "null");
    }
    try {
       const response = await fetch(`${API_BASE_URL}/categories`);

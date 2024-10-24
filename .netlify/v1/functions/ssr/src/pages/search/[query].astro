@@ -1,0 +1,14 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Container from "@/components/main-components/Container.astro";
+import SearchResults from '@/features/search/SearchResults.tsx';
+
+const { query } = Astro.params;
+---
+<Layout>
+  <Container class="mt-14">
+    <h1 class="mb-5 text-base font-SatoshiBold">Search Result For : {query}</h1>
+    <SearchResults query={query} client:idle />
+    <a href="/" role="button" class="btn btn-neutral  w-full mt-5">Back To Home</a>
+  </Container>
+</Layout>

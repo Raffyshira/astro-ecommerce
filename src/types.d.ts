@@ -11,14 +11,14 @@ export interface AllProductTypes {
    images: string[];
    sku: string;
    category: string;
-   description: string;
+   description?: string;
 }
 
 export interface CardProductProps {
    id: number;
    name: string;
    price: number;
-   image: string;
+   thumbnail?: string;
    discount?: number;
    rating: number;
    children: React.ReactNode;

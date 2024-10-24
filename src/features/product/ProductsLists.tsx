@@ -65,7 +65,6 @@ export default function ProductLists() {
                >
                   <CardProduct
                      id={product.id}
-                     image={product.thumbnail}
                      discount={product.discountPercentage}
                      name={product.title}
                      price={product.price}
