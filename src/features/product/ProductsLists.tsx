@@ -32,7 +32,7 @@ export default function ProductLists() {
          const newProducts = await getAllProducts(
             (page - 1) * 10,
             15,
-            selectedCategory === "All" || selectedCategory === null
+            selectedCategory === "all" || selectedCategory === null
                ? undefined
                : selectedCategory
          );
@@ -63,7 +63,7 @@ export default function ProductLists() {
    }, [page, loading, hasMore, selectedCategory, displayedProductIds]);
 
    const handleCategoryChange = (category: string) => {
-      setSelectedCategory(category);
+      setSelectedCategory(category === "all" ? undefined : category);
       setDisplayedProductIds(new Set());
 
       setProducts([]); // Clear existing products
