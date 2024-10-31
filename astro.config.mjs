@@ -4,11 +4,9 @@ import react from "@astrojs/react";
 import netlify from "@astrojs/netlify";
 import clerk from "@clerk/astro";
 
-import tunnel from "astro-tunnel";
-
 // https://astro.build/config
 export default defineConfig({
-   site: "http://localhost:4321/",
+   site: "https://astroecommerce.netlify.app/",
    integrations: [
       tailwind({ applyBaseStyles: false }),
       react(),
@@ -19,14 +17,6 @@ export default defineConfig({
                termsPageUrl: "https://clerk.com/terms"
             }
          }
-      }),
-      tunnel({
-         url: "http://localhost:4321",
-         port: 4321,
-         host: "localhost",
-         protocol: "http",
-         verifyTLS: false,
-         acceptCloudflareNotice: false
       })
    ],
    output: "server",
@@ -35,6 +25,6 @@ export default defineConfig({
       service: passthroughImageService()
    },
    devToolbar: {
-    enabled: true
-  }
+      enabled: false
+   }
 });
