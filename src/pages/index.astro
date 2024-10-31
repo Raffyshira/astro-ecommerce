@@ -1,38 +1,28 @@
 ---
 import { Image } from "astro:assets";
+
 import Layout from '@/layouts/Layout.astro';
 import Container from "@/components/main-components/Container.astro";
-import { Button } from "@/components/ui/button.tsx";
-
-import { getAllProducts, getProductByCategory } from "@/lib/api.ts";
+import { getAllProducts } from "@/lib/api.ts";
 import type { AllProductTypes } from "@/types.d.ts";
 
 import { TestCarousel } from "@/features/product/ProductCarousel.tsx";
 
-import ProductLists from "../features/product/ProductsLists.tsx";
+import ProductLists from "@/features/product/ProductsLists.tsx";
 import CardProduct from "@/features/product/card-product.tsx";
 import { CardByCategory } from "@/components/card-product.tsx"
 
 import LandingPage from "@/assets/images/landing_page.jpg";
 
 
-interface CardCategoryProps {
-  name: string;
-};
 
 
 const products = await getAllProducts();
-const productsCategory = await getProductByCategory()
 ---
 
 <Layout>
-  <div class="relative z-20 mt-14">
-    <Image class="w-full h-full aspect-video object-cover" src={LandingPage} alt="photo" width={1600} height={600} />
-    <div class="absolute top-10 right-10 z-10 text-end text-white w-fit sm:top-20 sm:right-20">
-      <h1 class="text-2xl font-SatoshiBold sm:text-4xl">New Collections</h1>
-      <p class="w-64 sm:text-xl sm:w-full">sint proident occaecat laborum amet officia non</p>
-      <Button className="mt-2 font-SatoshiMedium uppercase h-8 rounded-md px-3">Shop Now</Button>
-    </div>
+  <div class="z-20 mt-16 p-2">
+    <Image class="w-full h-full aspect-video object-cover rounded-xl" src={LandingPage} alt="photo" width={1600} height={600} />
   </div>
 	<Container class="max-w-full">
 	  <div class="w-full flex justify-between items-center">
@@ -71,15 +61,8 @@ const productsCategory = await getProductByCategory()
       ))}
     </TestCarousel>
 	</Container>
-	<Container class="sticky top-14 bg-white z-40">
-	  <div class="flex flex-row w-full h-full overflow-x-scroll gap-x-3.5 scrollbar">
-	    {productsCategory.slice(0, 8).map((item: CardCategoryProps) => (
-	      <a href="/" class="shrink-0 rounded-full font-SatoshiMedium border border-slate-500 px-2 rounded-md">{item.name}</a>
-	    ))}
-	  </div>
-	</Container>
 	
-	<Container>
+	<Container class="px-0">
 	  <ProductLists client:load />
 	</Container>
 </Layout>

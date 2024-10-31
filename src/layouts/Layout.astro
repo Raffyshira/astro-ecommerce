@@ -2,16 +2,16 @@
 import "@/styles/globals.css";
 import { SITE_TITLE, SITE_DESCRIPTION, X_ACCOUNT } from "@/consts.ts";
 import MainHeader from "@/components/main-components/MainHeader.astro";
+import BottomNav from "@/components/navbar/bottom-nav.tsx"
 import { Toaster } from "@/components/ui/toaster";
 
 interface Props {
 	title?: string;
 	description?: string;
 };
-
 const { title, description }: Props = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
+const showBottomNav = ['/', '/user', '/signin', '/register'].includes(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -44,6 +44,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	   <MainHeader />
 	   <main>
 		  <slot />
+		  {showBottomNav && <BottomNav client:load />} 
 	   </main>
 	   <Toaster client:load />
 	</body>

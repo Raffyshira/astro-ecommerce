@@ -1,40 +1,45 @@
-import { renderers } from './renderers.mjs';
-import { s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_CvSoi7hX.mjs';
-import { manifest } from './manifest_D4qKRDif.mjs';
-import { onRequest } from './_noop-middleware.mjs';
-import { createExports } from '@astrojs/netlify/ssr-function.js';
-
-const _page0 = () => import('./pages/_image.astro.mjs');
-const _page1 = () => import('./pages/api/auth/_---auth_.astro.mjs');
-const _page2 = () => import('./pages/cart.astro.mjs');
-const _page3 = () => import('./pages/product/_id_.astro.mjs');
-const _page4 = () => import('./pages/search/_query_.astro.mjs');
-const _page5 = () => import('./pages/index.astro.mjs');
-
-const pageMap = new Map([
-    ["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
-    ["node_modules/auth-astro/src/api/[...auth].ts", _page1],
-    ["src/pages/cart/index.astro", _page2],
-    ["src/pages/product/[id].astro", _page3],
-    ["src/pages/search/[query].astro", _page4],
-    ["src/pages/index.astro", _page5]
+import { renderers } from "./renderers.mjs";
+import { s as serverEntrypointModule } from "./chunks/_@astrojs-ssr-adapter_DYQ_v7bF.mjs";
+import { manifest } from "./manifest_D3SZM_Pm.mjs";
+import { onRequest } from "./_astro-internal_middleware.mjs";
+import { createExports } from "@astrojs/netlify/ssr-function.js";
+const _page0 = () => import("./pages/_image.astro.mjs");
+const _page1 = () => import("./pages/cart.astro.mjs");
+const _page2 = () => import("./pages/dashboard.astro.mjs");
+const _page3 = () => import("./pages/product/_id_.astro.mjs");
+const _page4 = () => import("./pages/register.astro.mjs");
+const _page5 = () => import("./pages/search/_query_.astro.mjs");
+const _page6 = () => import("./pages/signin.astro.mjs");
+const _page7 = () => import("./pages/user.astro.mjs");
+const _page8 = () => import("./pages/index.astro.mjs");
+const pageMap = /* @__PURE__ */ new Map([
+  ["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
+  ["src/pages/cart/index.astro", _page1],
+  ["src/pages/dashboard.astro", _page2],
+  ["src/pages/product/[id].astro", _page3],
+  ["src/pages/register.astro", _page4],
+  ["src/pages/search/[query].astro", _page5],
+  ["src/pages/signin.astro", _page6],
+  ["src/pages/user/index.astro", _page7],
+  ["src/pages/index.astro", _page8]
 ]);
-const serverIslandMap = new Map();
-
+const serverIslandMap = /* @__PURE__ */ new Map();
 const _manifest = Object.assign(manifest, {
-    pageMap,
-    serverIslandMap,
-    renderers,
-    middleware: onRequest
+  pageMap,
+  serverIslandMap,
+  renderers,
+  middleware: onRequest
 });
 const _args = {
-    "middlewareSecret": "c8df758e-3796-4280-901c-50264cef1e11"
+  "middlewareSecret": "aca27b17-be9e-4bd2-ac1d-64748df612b0"
 };
 const _exports = createExports(_manifest, _args);
 const __astrojsSsrVirtualEntry = _exports.default;
-const _start = 'start';
+const _start = "start";
 if (_start in serverEntrypointModule) {
-	serverEntrypointModule[_start](_manifest, _args);
+  serverEntrypointModule[_start](_manifest, _args);
 }
-
-export { __astrojsSsrVirtualEntry as default, pageMap };
+export {
+  __astrojsSsrVirtualEntry as default,
+  pageMap
+};

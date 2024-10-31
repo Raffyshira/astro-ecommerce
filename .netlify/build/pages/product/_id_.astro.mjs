@@ -1,13 +1,12 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute } from '../../chunks/astro/server_B7VyQGdv.mjs';
-import 'kleur/colors';
-import 'html-escaper';
-import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from '../../chunks/card-product_Czv-Vd9W.mjs';
-import { jsxs, jsx } from 'react/jsx-runtime';
-import 'react';
-import { u as useCartStore, a as useToast, b as Button, c as $$Layout, $ as $$Container } from '../../chunks/badge_DmT3D4ir.mjs';
-import { Heart, Star, Camera, MessagesSquare, ChevronRight, StarIcon, ClockIcon } from 'lucide-react';
-export { renderers } from '../../renderers.mjs';
-
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute } from "../../chunks/astro/server_B4YGBfW-.mjs";
+import "kleur/colors";
+import "html-escaper";
+import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from "../../chunks/card-product_CBLKUQo4.mjs";
+import { jsxs, jsx } from "react/jsx-runtime";
+import "react";
+import { u as useCartStore, a as useToast, c as useDev, B as Button, b as $$Layout, $ as $$Container } from "../../chunks/Container_BKhQ0jDb.mjs";
+import { Heart, Star, Camera, MessagesSquare, ChevronRight, StarIcon, ClockIcon } from "lucide-react";
+import { renderers } from "../../renderers.mjs";
 const ProductDetailMobile = ({
   id,
   price,
@@ -24,12 +23,7 @@ const ProductDetailMobile = ({
 }) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const { toast } = useToast();
-  const handleNotWork = () => {
-    toast({
-      title: "Maaf, Masih Tahap Development :)",
-      variant: "destructive"
-    });
-  };
+  const { handleNotWork } = useDev();
   const handleAddToCart = () => {
     addToCart({
       id,
@@ -211,8 +205,7 @@ const ProductDetailMobile = ({
     ] })
   ] });
 };
-
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$id = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$id;
@@ -236,17 +229,16 @@ const $$id = createComponent(async ($$result, $$props, $$slots) => {
       ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4"> ${relatedProducts.length > 0 ? relatedProducts.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}
       ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 mb-10 md:grid-cols-4 gap-4"> ${productRecomend.length > 0 ? productRecomend.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}` : renderTemplate`<p>Produk tidak ditemukan.</p>`} </div> ` })}`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/product/[id].astro", void 0);
-
 const $$file = "/data/data/com.termux/files/home/astro-ecommerce/src/pages/product/[id].astro";
 const $$url = "/product/[id]";
-
-const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-   __proto__: null,
-   default: $$id,
-   file: $$file,
-   url: $$url
-}, Symbol.toStringTag, { value: 'Module' }));
-
+const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: $$id,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: "Module" }));
 const page = () => _page;
-
-export { page };
+export {
+  page,
+  renderers
+};

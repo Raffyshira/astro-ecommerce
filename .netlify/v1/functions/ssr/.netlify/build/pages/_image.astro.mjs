@@ -1,9 +1,8 @@
-import { g as getConfiguredImageService, i as imageConfig } from '../chunks/_astro_assets_C9Nkrvwx.mjs';
-import { isRemotePath } from '@astrojs/internal-helpers/path';
-import * as mime from 'mrmime';
-import { i as isRemoteAllowed } from '../chunks/astro/assets-service_DgCPgHHl.mjs';
-export { renderers } from '../renderers.mjs';
-
+import { g as getConfiguredImageService, i as imageConfig } from "../chunks/_astro_assets_fvqkA5v-.mjs";
+import { isRemotePath } from "@astrojs/internal-helpers/path";
+import * as mime from "mrmime";
+import { i as isRemoteAllowed } from "../chunks/astro/assets-service__L5dqHQs.mjs";
+import { renderers } from "../renderers.mjs";
 const fnv1a52 = (str) => {
   const len = str.length;
   let i = 0, t0 = 0, v0 = 8997, t1 = 0, v1 = 33826, t2 = 0, v2 = 40164, t3 = 0, v3 = 52210;
@@ -28,7 +27,6 @@ const etag = (payload, weak = false) => {
   const prefix = weak ? 'W/"' : '"';
   return prefix + fnv1a52(payload).toString(36) + payload.length.toString(36) + '"';
 };
-
 async function loadRemoteImage(src, headers) {
   try {
     const res = await fetch(src, {
@@ -83,12 +81,12 @@ const GET = async ({ request }) => {
     return new Response(`Server Error: ${err}`, { status: 500 });
   }
 };
-
-const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   GET
-}, Symbol.toStringTag, { value: 'Module' }));
-
+}, Symbol.toStringTag, { value: "Module" }));
 const page = () => _page;
-
-export { page };
+export {
+  page,
+  renderers
+};

@@ -10,17 +10,21 @@ const API_BASE_URL = "https://dummyjson.com/products";
  */
 export async function getAllProducts(
    offset: number = 0,
-   limit: number = 15
+   limit: number = 15,
+   category?: string | undefined
 ): Promise<AllProductTypes[]> {
-   const cacheKey = `product-${limit}-${offset}`;
+   const cacheKey = `product-${limit}-${offset}-${category || "all"} `;
    const isBrowser = typeof window !== "undefined";
    if (isBrowser && localStorage.getItem(cacheKey)) {
       return JSON.parse(localStorage.getItem(cacheKey) || "[]");
    }
    try {
-      const response = await fetch(
-         `${API_BASE_URL}?limit=${limit}&skip=${offset}`
-      );
+      const url = category
+         ? `${API_BASE_URL}/category/${category}?limit=${limit}&skip=${offset}`
+         : `${API_BASE_URL}?limit=${limit}&skip=${offset}`;
+
+      const response = await fetch(url);
+
       if (!response.ok) {
          throw new Error("Gagal mengambil data produk");
       }

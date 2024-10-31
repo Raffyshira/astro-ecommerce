@@ -1,1 +1,1 @@
-export * from '@astrojs/netlify/ssr-function.js';
+export * from "@astrojs/netlify/ssr-function.js";

@@ -1,9 +1,9 @@
-"use client";
 import React from "react";
-import type { AllProductTypes } from "@/types.d.ts"
+import type { AllProductTypes } from "@/types.d.ts";
 import { ProductCarousel } from "@/features/product/ProductCarousel.tsx";
 import { useCartStore } from "@/features/cart/CartStore.ts";
 import { useToast } from "@/hooks/use-toast";
+import { useDev } from "@/hooks/use-dev.ts";
 import { Button } from "@/components/ui/button.tsx";
 import {
    Heart,
@@ -14,7 +14,6 @@ import {
    StarIcon,
    ClockIcon
 } from "lucide-react";
-
 
 interface PropsReview {
    reviewerName: string;
@@ -39,12 +38,7 @@ export const ProductDetailMobile: React.FC<AllProductTypes> = ({
 }) => {
    const addToCart = useCartStore(state => state.addToCart);
    const { toast } = useToast();
-   const handleNotWork = () => {
-      toast({
-         title: "Maaf, Masih Tahap Development :)",
-         variant: "destructive"
-      });
-   };
+   const { handleNotWork } = useDev();
    const handleAddToCart = () => {
       addToCart({
          id,

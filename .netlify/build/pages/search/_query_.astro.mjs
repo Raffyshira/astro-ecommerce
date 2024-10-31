@@ -1,13 +1,13 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from '../../chunks/astro/server_B7VyQGdv.mjs';
-import 'kleur/colors';
-import 'html-escaper';
-import { d as cn, e as useSearchStore, B as Badge, $ as $$Container, c as $$Layout } from '../../chunks/badge_DmT3D4ir.mjs';
-import { jsx, Fragment, jsxs } from 'react/jsx-runtime';
-import { useEffect } from 'react';
-import { C as Card, a as CardContent, b as CardFooter } from '../../chunks/card_DPGYi5l5.mjs';
-import { Star } from 'lucide-react';
-export { renderers } from '../../renderers.mjs';
-
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from "../../chunks/astro/server_B4YGBfW-.mjs";
+import "kleur/colors";
+import "html-escaper";
+import { d as cn, e as useSearchStore, $ as $$Container, f as BottomNav, b as $$Layout } from "../../chunks/Container_BKhQ0jDb.mjs";
+import { jsx, Fragment, jsxs } from "react/jsx-runtime";
+import { useEffect } from "react";
+import { C as Card, a as CardContent, b as CardFooter } from "../../chunks/card_DLAtJZXg.mjs";
+import { B as Badge } from "../../chunks/badge_DD5pvvNR.mjs";
+import { Star } from "lucide-react";
+import { renderers } from "../../renderers.mjs";
 function Skeleton({
   className,
   ...props
@@ -20,9 +20,8 @@ function Skeleton({
     }
   );
 }
-
 const CardSkeletonProduct = () => {
-  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs(Card, { className: "flex bg-transparent flex-col max-w-sm w-50 h-fit border-none overflow-hidden space-y-3", children: [
+  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs(Card, { className: "flex bg-transparent flex-col max-w-sm w-50 h-fit border-none overflow-hidden space-y-3 my-3.5", children: [
     /* @__PURE__ */ jsx(Skeleton, { className: "h-[200px] w-50 rounded-xl" }),
     /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
       /* @__PURE__ */ jsx(Skeleton, { className: "h-4 w-[250px]" }),
@@ -31,7 +30,6 @@ const CardSkeletonProduct = () => {
     ] })
   ] }) });
 };
-
 const SearchResult = ({ query }) => {
   const { setSearchTerm, searchResults, loading, error, performSearch } = useSearchStore();
   useEffect(() => {
@@ -77,25 +75,23 @@ const SearchResult = ({ query }) => {
     ] })) : !loading && /* @__PURE__ */ jsx("p", { className: "mt-20", children: "No products found." }) }) })
   ] }) });
 };
-
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$query = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$query;
   const { query } = Astro2.params;
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Container", $$Container, { "class": "mt-14" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<h1 class="mb-5 text-base font-SatoshiBold">Search Result For : ${query}</h1> ${renderComponent($$result3, "SearchResults", SearchResult, { "query": query, "client:idle": true, "client:component-hydration": "idle", "client:component-path": "@/features/search/SearchResults.tsx", "client:component-export": "default" })} <a href="/" role="button" class="btn btn-neutral  w-full mt-5">Back To Home</a> ` })} ` })}`;
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Container", $$Container, { "class": "mt-14" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<h1 class="mb-5 text-base font-SatoshiBold">Search Result For : ${query}</h1> ${renderComponent($$result3, "SearchResults", SearchResult, { "query": query, "client:idle": true, "client:component-hydration": "idle", "client:component-path": "@/features/search/SearchResults.tsx", "client:component-export": "default" })} <div class="mt-5 pb-10"> <a href="/" role="button" class="btn btn-neutral  w-full ">Back To Home</a> </div> ` })} ${renderComponent($$result2, "BottomNav", BottomNav, { "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/navbar/bottom-nav.tsx", "client:component-export": "default" })} ` })}`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/search/[query].astro", void 0);
-
 const $$file = "/data/data/com.termux/files/home/astro-ecommerce/src/pages/search/[query].astro";
 const $$url = "/search/[query]";
-
-const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: $$query,
   file: $$file,
   url: $$url
-}, Symbol.toStringTag, { value: 'Module' }));
-
+}, Symbol.toStringTag, { value: "Module" }));
 const page = () => _page;
-
-export { page };
+export {
+  page,
+  renderers
+};

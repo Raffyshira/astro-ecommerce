@@ -24,6 +24,9 @@ interface SearchState {
    searchResults: Product[];
    loading: boolean;
    error: string | null;
+   searchHistory: string[];
+   addSearchHistory: (term: string) => void;
+   clearSearchHistory: () => void;
    suggestions: string[];
    fetchSuggestions: any;
    suggestionsLoading: boolean;
@@ -42,6 +45,7 @@ export const useSearchStore = create<SearchState>()(
          suggestions: [],
          suggestionsLoading: false,
          suggestionsError: null,
+         searchHistory: [],
          setSearchTerm: (term: string) => set({ searchTerm: term }),
          performSearch: async () => {
             const { searchTerm } = get();
@@ -70,6 +74,14 @@ export const useSearchStore = create<SearchState>()(
                console.error("Error during search:", error);
             }
          },
+         addSearchHistory: term =>
+            set(state => ({
+               searchHistory: [
+                  ...new Set([term, ...state.searchHistory])
+               ].slice(0, 10) // Membatasi riwayat hingga 10 entri unik
+            })),
+         clearSearchHistory: () => set({ searchHistory: [] }),
+
          fetchSuggestions: async () => {
             const { searchTerm } = get();
             if (searchTerm.trim() === "") {

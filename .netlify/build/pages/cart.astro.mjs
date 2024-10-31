@@ -1,12 +1,12 @@
-import { c as createComponent, r as renderTemplate, a as renderComponent } from '../chunks/astro/server_B7VyQGdv.mjs';
-import 'kleur/colors';
-import 'html-escaper';
-import { u as useCartStore, a as useToast, B as Badge, b as Button, $ as $$Container, c as $$Layout } from '../chunks/badge_DmT3D4ir.mjs';
-import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import { useState, useEffect } from 'react';
-import { Trash2, Heart } from 'lucide-react';
-export { renderers } from '../renderers.mjs';
-
+import { c as createComponent, r as renderTemplate, a as renderComponent } from "../chunks/astro/server_B4YGBfW-.mjs";
+import "kleur/colors";
+import "html-escaper";
+import { u as useCartStore, a as useToast, B as Button, $ as $$Container, b as $$Layout } from "../chunks/Container_BKhQ0jDb.mjs";
+import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+import { useState, useEffect } from "react";
+import { Trash2, Heart } from "lucide-react";
+import { B as Badge } from "../chunks/badge_DD5pvvNR.mjs";
+import { renderers } from "../renderers.mjs";
 const Cart = () => {
   const cart = useCartStore((state) => state.cart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
@@ -194,21 +194,19 @@ const Cart = () => {
     ] })
   ] }) });
 };
-
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` ${renderComponent($$result3, "Cart", Cart, { "client:load": true, "client:component-hydration": "load", "client:component-path": "@/features/cart/Cart.tsx", "client:component-export": "default" })} ` })} ` })}`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/cart/index.astro", void 0);
-
 const $$file = "/data/data/com.termux/files/home/astro-ecommerce/src/pages/cart/index.astro";
 const $$url = "/cart";
-
-const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-   __proto__: null,
-   default: $$Index,
-   file: $$file,
-   url: $$url
-}, Symbol.toStringTag, { value: 'Module' }));
-
+const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: $$Index,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: "Module" }));
 const page = () => _page;
-
-export { page };
+export {
+  page,
+  renderers
+};
