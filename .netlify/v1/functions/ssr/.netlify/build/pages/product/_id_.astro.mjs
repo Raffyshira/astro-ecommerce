@@ -1,10 +1,10 @@
 import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute } from "../../chunks/astro/server_B4YGBfW-.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from "../../chunks/card-product_C6TPdz-3.mjs";
+import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from "../../chunks/card-product_CIkhEL-M.mjs";
 import { jsxs, jsx } from "react/jsx-runtime";
 import "react";
-import { u as useCartStore, a as useToast, c as useDev, B as Button, b as $$Layout, $ as $$Container } from "../../chunks/Container_DymqdPQ5.mjs";
+import { u as useCartStore, a as useToast, c as useDev, B as Button, b as $$Layout, $ as $$Container } from "../../chunks/Container_LDLqM13Q.mjs";
 import { Heart, Star, Camera, MessagesSquare, ChevronRight, StarIcon, ClockIcon } from "lucide-react";
 import { renderers } from "../../renderers.mjs";
 const ProductDetailMobile = ({

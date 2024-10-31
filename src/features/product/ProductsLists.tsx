@@ -3,24 +3,28 @@ import { useState, useEffect, useCallback } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import CardProduct from "@/features/product/card-product.tsx";
-
 import { motion, AnimatePresence } from "framer-motion";
-
+import type { AllProductTypes } from "../../types.d.ts";
 import { getAllProducts, getProductByCategory } from "@/lib/api.ts";
 
 type Category = {
    name: string;
+   value: string | undefined;
 };
 
 export default function ProductLists() {
-   const [products, setProducts] = useState<any[]>([]);
+   const [products, setProducts] = useState<AllProductTypes[]>([]);
    const [page, setPage] = useState<number>(1);
    const [loading, setLoading] = useState<boolean>(false);
    const [hasMore, setHasMore] = useState<boolean>(true);
    const [categories, setCategories] = useState<Category[]>([]);
+<<<<<<< HEAD
    const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
       undefined
    );
+=======
+   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+>>>>>>> 8a2088a (fixed: all category functions)
    const [displayedProductIds, setDisplayedProductIds] = useState<Set<number>>(
       new Set()
    );
@@ -32,9 +36,13 @@ export default function ProductLists() {
          const newProducts = await getAllProducts(
             (page - 1) * 10,
             15,
+<<<<<<< HEAD
             selectedCategory === "all" || selectedCategory === null
                ? undefined
                : selectedCategory
+=======
+            selectedCategory === "all" ? undefined : selectedCategory
+>>>>>>> 8a2088a (fixed: all category functions)
          );
 
          if (newProducts.length === 0) {
@@ -65,30 +73,39 @@ export default function ProductLists() {
    const handleCategoryChange = (category: string) => {
       setSelectedCategory(category === "all" ? undefined : category);
       setDisplayedProductIds(new Set());
-
-      setProducts([]); // Clear existing products
-      setPage(1); // Reset the page
-      setHasMore(true); // Reset the hasMore state
+      setProducts([]);
+      setPage(1);
+      setHasMore(true);
    };
 
    useEffect(() => {
       const loadCategories = async () => {
          const categoriesData = await getProductByCategory();
-         setCategories([{ name: "All" }, ...(categoriesData || [])]);
+         setCategories([
+            { name: "All", value: "all" },
+            ...(categoriesData || [])
+         ]);
       };
       loadCategories();
-      loadMoreProducts(); // Load products when categories are fetched
+      loadMoreProducts();
    }, [selectedCategory]);
 
    return (
       <div>
-         <Tabs onValueChange={handleCategoryChange} value={selectedCategory}>
+         <Tabs
+            onValueChange={handleCategoryChange}
+            value={selectedCategory}
+            defaultValue="all"
+         >
             <div className="sticky top-16 z-40">
-               <TabsList className="flex flex-row overflow-scroll bg-white">
+               <TabsList className="flex flex-row overflow-x-auto bg-white">
                   {categories.map(category => (
                      <TabsTrigger
                         key={category.name}
-                        value={category.name.toLowerCase().replace(/\s+/g, "-")}
+                        value={
+                           category.value ||
+                           category.name.toLowerCase().replace(/\s+/g, "-")
+                        }
                         className="shrink-0 bg-white data-[state=active]:underline underline-offset-4"
                      >
                         {category.name}
@@ -105,12 +122,13 @@ export default function ProductLists() {
                   transition={{ duration: 0.3 }}
                   className="mt-4"
                >
-                  {/* Content here */}
-                  {/* Content for each specific category */}
                   {categories.map(category => (
                      <TabsContent
                         key={category.name}
-                        value={category.name.toLowerCase().replace(/\s+/g, "-")}
+                        value={
+                           category.value ||
+                           category.name.toLowerCase().replace(/\s+/g, "-")
+                        }
                      >
                         {products.length === 0 && !loading && (
                            <p className="text-center mt-4">

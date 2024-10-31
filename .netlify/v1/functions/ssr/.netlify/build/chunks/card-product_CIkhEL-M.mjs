@@ -1,11 +1,11 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import * as React from "react";
 import { createContext, useRef, useState, useEffect } from "react";
-import { d as cn, B as Button } from "./Container_DymqdPQ5.mjs";
+import { d as cn, B as Button } from "./Container_LDLqM13Q.mjs";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight, MoveLeft, MoveRight, Star } from "lucide-react";
-import { B as Badge } from "./badge__kECrbPe.mjs";
-import { C as Card, a as CardContent, b as CardFooter } from "./card_DvsrwaWt.mjs";
+import { B as Badge } from "./badge_BBg3bbpT.mjs";
+import { C as Card, a as CardContent, b as CardFooter } from "./card_mvzUTpgv.mjs";
 const API_BASE_URL = "https://dummyjson.com/products";
 async function getAllProducts(offset = 0, limit = 15, category) {
   const cacheKey = `product-${limit}-${offset}-${category || "all"} `;

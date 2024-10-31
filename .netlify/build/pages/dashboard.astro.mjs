@@ -1,7 +1,7 @@
 import { c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from "../chunks/astro/server_B4YGBfW-.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { $ as $$Container, b as $$Layout } from "../chunks/Container_DymqdPQ5.mjs";
+import { $ as $$Container, b as $$Layout } from "../chunks/Container_LDLqM13Q.mjs";
 import { renderers } from "../renderers.mjs";
 const $$Dashboard = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Dasboard" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Container", $$Container, { "class": "mt-14" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<h1>Welcome</h1> <p>We are happy to see you here</p> <form> <button type="submit">Sign out</button> </form> <a href="/">Back</a> ` })} ` })}`;

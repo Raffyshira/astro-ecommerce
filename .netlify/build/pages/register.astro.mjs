@@ -1,7 +1,7 @@
 import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent } from "../chunks/astro/server_B4YGBfW-.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { $ as $$Container, b as $$Layout } from "../chunks/Container_DymqdPQ5.mjs";
+import { $ as $$Container, b as $$Layout } from "../chunks/Container_LDLqM13Q.mjs";
 import { $ as $$InternalUIComponentRenderer } from "../chunks/InternalUIComponentRenderer_BJ0MdcGB.mjs";
 import { renderers } from "../renderers.mjs";
 const $$Astro = createAstro("https://astroecommerce.netlify.app/");

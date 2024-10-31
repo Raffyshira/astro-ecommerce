@@ -3,14 +3,14 @@ import "kleur/colors";
 import "html-escaper";
 import "@astrojs/internal-helpers/path";
 import { $ as $$Image } from "../chunks/_astro_assets_8ZRGQkCu.mjs";
-import { d as cn, B as Button, $ as $$Container, b as $$Layout } from "../chunks/Container_DymqdPQ5.mjs";
-import { b as getAllProducts, C as CardProduct, c as getProductByCategory, T as TestCarousel } from "../chunks/card-product_C6TPdz-3.mjs";
+import { d as cn, B as Button, $ as $$Container, b as $$Layout } from "../chunks/Container_LDLqM13Q.mjs";
+import { b as getAllProducts, C as CardProduct, c as getProductByCategory, T as TestCarousel } from "../chunks/card-product_CIkhEL-M.mjs";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import * as React from "react";
 import { useState, useCallback, useEffect } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { AnimatePresence, motion } from "framer-motion";
-import { C as Card } from "../chunks/card_DvsrwaWt.mjs";
+import { C as Card } from "../chunks/card_mvzUTpgv.mjs";
 import { renderers } from "../renderers.mjs";
 const Tabs = TabsPrimitive.Root;
 const TabsList = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
@@ -55,9 +55,7 @@ function ProductLists() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(
-    "all"
-  );
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [displayedProductIds, setDisplayedProductIds] = useState(
     /* @__PURE__ */ new Set()
   );
@@ -68,7 +66,7 @@ function ProductLists() {
       const newProducts = await getAllProducts(
         (page2 - 1) * 10,
         15,
-        selectedCategory === "All" || selectedCategory === null ? void 0 : selectedCategory
+        selectedCategory === "all" ? void 0 : selectedCategory
       );
       if (newProducts.length === 0) {
         setHasMore(false);
@@ -103,67 +101,78 @@ function ProductLists() {
   useEffect(() => {
     const loadCategories = async () => {
       const categoriesData = await getProductByCategory();
-      setCategories([{ name: "All" }, ...categoriesData || []]);
+      setCategories([
+        { name: "All", value: "all" },
+        ...categoriesData || []
+      ]);
     };
     loadCategories();
     loadMoreProducts();
   }, [selectedCategory]);
   return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs(Tabs, { onValueChange: handleCategoryChange, value: selectedCategory, children: [
-      /* @__PURE__ */ jsx("div", { className: "sticky top-16 z-40", children: /* @__PURE__ */ jsx(TabsList, { className: "flex flex-row overflow-scroll bg-white", children: categories.map((category) => /* @__PURE__ */ jsx(
-        TabsTrigger,
-        {
-          value: category.name.toLowerCase().replace(/\s+/g, "-"),
-          className: "shrink-0 bg-white data-[state=active]:underline underline-offset-4",
-          children: category.name
-        },
-        category.name
-      )) }) }),
-      /* @__PURE__ */ jsx(AnimatePresence, { children: /* @__PURE__ */ jsx(
-        motion.div,
-        {
-          initial: { opacity: 0, x: 0 },
-          animate: { opacity: 1, x: 0 },
-          exit: { opacity: 0, x: 0 },
-          transition: { duration: 0.3 },
-          className: "mt-4",
-          children: categories.map((category) => /* @__PURE__ */ jsxs(
-            TabsContent,
+    /* @__PURE__ */ jsxs(
+      Tabs,
+      {
+        onValueChange: handleCategoryChange,
+        value: selectedCategory,
+        defaultValue: "all",
+        children: [
+          /* @__PURE__ */ jsx("div", { className: "sticky top-16 z-40", children: /* @__PURE__ */ jsx(TabsList, { className: "flex flex-row overflow-x-auto bg-white", children: categories.map((category) => /* @__PURE__ */ jsx(
+            TabsTrigger,
             {
-              value: category.name.toLowerCase().replace(/\s+/g, "-"),
-              children: [
-                products.length === 0 && !loading && /* @__PURE__ */ jsx("p", { className: "text-center mt-4", children: "No products found for this category." }),
-                /* @__PURE__ */ jsx("div", { className: "w-full h-fit columns-2 sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4", children: products.map((product) => /* @__PURE__ */ jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsx(
-                  CardProduct,
-                  {
-                    id: product.id,
-                    discount: product.discountPercentage,
-                    name: product.title,
-                    price: product.price,
-                    rating: product.rating,
-                    className: "shrink-0 h-fit",
-                    isLineClamp: false,
-                    children: /* @__PURE__ */ jsx(
-                      "img",
-                      {
-                        alt: product.title,
-                        className: "w-full aspect-square object-cover bg-gray-100",
-                        src: product.thumbnail,
-                        width: "200",
-                        height: "200",
-                        loading: "lazy"
-                      }
-                    )
-                  }
-                ) }, product.id)) })
-              ]
+              value: category.value || category.name.toLowerCase().replace(/\s+/g, "-"),
+              className: "shrink-0 bg-white data-[state=active]:underline underline-offset-4",
+              children: category.name
             },
             category.name
-          ))
-        },
-        selectedCategory
-      ) })
-    ] }),
+          )) }) }),
+          /* @__PURE__ */ jsx(AnimatePresence, { children: /* @__PURE__ */ jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, x: 0 },
+              animate: { opacity: 1, x: 0 },
+              exit: { opacity: 0, x: 0 },
+              transition: { duration: 0.3 },
+              className: "mt-4",
+              children: categories.map((category) => /* @__PURE__ */ jsxs(
+                TabsContent,
+                {
+                  value: category.value || category.name.toLowerCase().replace(/\s+/g, "-"),
+                  children: [
+                    products.length === 0 && !loading && /* @__PURE__ */ jsx("p", { className: "text-center mt-4", children: "No products found for this category." }),
+                    /* @__PURE__ */ jsx("div", { className: "w-full h-fit columns-2 sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4", children: products.map((product) => /* @__PURE__ */ jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsx(
+                      CardProduct,
+                      {
+                        id: product.id,
+                        discount: product.discountPercentage,
+                        name: product.title,
+                        price: product.price,
+                        rating: product.rating,
+                        className: "shrink-0 h-fit",
+                        isLineClamp: false,
+                        children: /* @__PURE__ */ jsx(
+                          "img",
+                          {
+                            alt: product.title,
+                            className: "w-full aspect-square object-cover bg-gray-100",
+                            src: product.thumbnail,
+                            width: "200",
+                            height: "200",
+                            loading: "lazy"
+                          }
+                        )
+                      }
+                    ) }, product.id)) })
+                  ]
+                },
+                category.name
+              ))
+            },
+            selectedCategory
+          ) })
+        ]
+      }
+    ),
     loading && /* @__PURE__ */ jsx("p", { className: "text-center mb-16", children: "Loading more products..." }),
     !hasMore ? /* @__PURE__ */ jsx("p", { className: "text-center mb-16", children: "No more products to load" }) : /* @__PURE__ */ jsx("div", { className: "text-center mt-4 mb-16 px-5", children: /* @__PURE__ */ jsx(
       Button,
