@@ -19,7 +19,7 @@ export default function ProductLists() {
    const [hasMore, setHasMore] = useState<boolean>(true);
    const [categories, setCategories] = useState<Category[]>([]);
    const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-      "all"
+      undefined
    );
    const [displayedProductIds, setDisplayedProductIds] = useState<Set<number>>(
       new Set()
