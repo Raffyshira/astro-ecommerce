@@ -18,13 +18,7 @@ export default function ProductLists() {
    const [loading, setLoading] = useState<boolean>(false);
    const [hasMore, setHasMore] = useState<boolean>(true);
    const [categories, setCategories] = useState<Category[]>([]);
-<<<<<<< HEAD
-   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-      undefined
-   );
-=======
    const [selectedCategory, setSelectedCategory] = useState<string>("all");
->>>>>>> 8a2088a (fixed: all category functions)
    const [displayedProductIds, setDisplayedProductIds] = useState<Set<number>>(
       new Set()
    );
@@ -36,13 +30,7 @@ export default function ProductLists() {
          const newProducts = await getAllProducts(
             (page - 1) * 10,
             15,
-<<<<<<< HEAD
-            selectedCategory === "all" || selectedCategory === null
-               ? undefined
-               : selectedCategory
-=======
             selectedCategory === "all" ? undefined : selectedCategory
->>>>>>> 8a2088a (fixed: all category functions)
          );
 
          if (newProducts.length === 0) {
@@ -71,7 +59,7 @@ export default function ProductLists() {
    }, [page, loading, hasMore, selectedCategory, displayedProductIds]);
 
    const handleCategoryChange = (category: string) => {
-      setSelectedCategory(category === "all" ? undefined : category);
+      setSelectedCategory(category);
       setDisplayedProductIds(new Set());
       setProducts([]);
       setPage(1);

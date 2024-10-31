@@ -1,6 +1,6 @@
 import { renderers } from "./renderers.mjs";
 import { s as serverEntrypointModule } from "./chunks/_@astrojs-ssr-adapter_DYQ_v7bF.mjs";
-import { manifest } from "./manifest_3xKhhxyk.mjs";
+import { manifest } from "./manifest_ivAxq-cD.mjs";
 import { onRequest } from "./_astro-internal_middleware.mjs";
 import { createExports } from "@astrojs/netlify/ssr-function.js";
 const _page0 = () => import("./pages/_image.astro.mjs");
@@ -31,7 +31,7 @@ const _manifest = Object.assign(manifest, {
   middleware: onRequest
 });
 const _args = {
-  "middlewareSecret": "09099ba0-da19-4f15-ad85-1f6600118f70"
+  "middlewareSecret": "8b53b1d1-bd02-4dd6-8f3f-2d3c9f012389"
 };
 const _exports = createExports(_manifest, _args);
 const __astrojsSsrVirtualEntry = _exports.default;
