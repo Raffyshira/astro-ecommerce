@@ -1,11 +1,11 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, e as renderSlot, f as defineScriptVars, m as maybeRenderHead } from "../chunks/astro/server_B4YGBfW-.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, e as renderSlot, f as defineScriptVars, m as maybeRenderHead } from "../chunks/astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { $ as $$Container, b as $$Layout } from "../chunks/Container_LDLqM13Q.mjs";
-import { $ as $$InternalUIComponentRenderer } from "../chunks/InternalUIComponentRenderer_BJ0MdcGB.mjs";
+import { $ as $$Container, b as $$Layout } from "../chunks/Container_CglYaq8S.mjs";
+import { $ as $$InternalUIComponentRenderer } from "../chunks/InternalUIComponentRenderer_Dw0c8k8G.mjs";
 import "clsx";
 import { renderers } from "../renderers.mjs";
-const $$Astro$3 = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro$3 = createAstro("http://localhost:4321/");
 const $$UserProfile = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$3, $$props, $$slots);
   Astro2.self = $$UserProfile;
@@ -15,7 +15,7 @@ var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(raw || cooked.slice()) }));
 var _a;
-const $$Astro$2 = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro$2 = createAstro("http://localhost:4321/");
 const $$CustomProfilePageRenderer = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$CustomProfilePageRenderer;
@@ -30,14 +30,14 @@ const $$CustomProfilePageRenderer = createComponent(async ($$result, $$props, $$
   }
   return renderTemplate(_a || (_a = __template(["<script>(function(){", "\n// Get the component map from window that we set in the `<InternalUIComponentRenderer />`.\nconst clerkComponentMap = window.__astro_clerk_component_props.get(component);\n\nconst componentElement = document.querySelector(`[data-clerk-id^=\"clerk-${component}\"]`);\n\nconst safeId = componentElement.getAttribute('data-clerk-id');\nconst currentOptions = clerkComponentMap.get(safeId);\n\nconst isReorderItem = reorderItemsLabels.includes(label);\n\nlet newCustomPage = { label }\n\nif (!isReorderItem) {\n  newCustomPage = {\n    ...newCustomPage,\n    url,\n    mountIcon: (el) => { el.innerHTML = labelIcon },\n    unmountIcon: () => { /* Implement cleanup if needed */ }\n  }\n\n  if (type === 'page') {\n    newCustomPage = {\n      ...newCustomPage,\n      mount: (el) => { el.innerHTML = content },\n      unmount: () => { /* Implement cleanup if needed */ }\n    }\n  }\n}\n\n// Custom <OrganizationProfile /> pages can be added inside\n// the <OrganizationSwitcher /> component.\nif (component === 'organization-switcher') {\n  clerkComponentMap.set(safeId, {\n    ...currentOptions,\n    organizationProfileProps: {\n      ...currentOptions.organizationProfileProps,\n      customPages: [\n        ...(currentOptions?.organizationProfileProps?.customPages ?? []),\n        newCustomPage\n      ]\n    }\n  })\n} else {\n  clerkComponentMap.set(safeId, {\n    ...currentOptions,\n    customPages: [\n      ...(currentOptions?.customPages ?? []),\n      newCustomPage,\n    ]\n  })\n}\n})();<\/script>"], ["<script>(function(){", "\n// Get the component map from window that we set in the \\`<InternalUIComponentRenderer />\\`.\nconst clerkComponentMap = window.__astro_clerk_component_props.get(component);\n\nconst componentElement = document.querySelector(\\`[data-clerk-id^=\"clerk-\\${component}\"]\\`);\n\nconst safeId = componentElement.getAttribute('data-clerk-id');\nconst currentOptions = clerkComponentMap.get(safeId);\n\nconst isReorderItem = reorderItemsLabels.includes(label);\n\nlet newCustomPage = { label }\n\nif (!isReorderItem) {\n  newCustomPage = {\n    ...newCustomPage,\n    url,\n    mountIcon: (el) => { el.innerHTML = labelIcon },\n    unmountIcon: () => { /* Implement cleanup if needed */ }\n  }\n\n  if (type === 'page') {\n    newCustomPage = {\n      ...newCustomPage,\n      mount: (el) => { el.innerHTML = content },\n      unmount: () => { /* Implement cleanup if needed */ }\n    }\n  }\n}\n\n// Custom <OrganizationProfile /> pages can be added inside\n// the <OrganizationSwitcher /> component.\nif (component === 'organization-switcher') {\n  clerkComponentMap.set(safeId, {\n    ...currentOptions,\n    organizationProfileProps: {\n      ...currentOptions.organizationProfileProps,\n      customPages: [\n        ...(currentOptions?.organizationProfileProps?.customPages ?? []),\n        newCustomPage\n      ]\n    }\n  })\n} else {\n  clerkComponentMap.set(safeId, {\n    ...currentOptions,\n    customPages: [\n      ...(currentOptions?.customPages ?? []),\n      newCustomPage,\n    ]\n  })\n}\n})();<\/script>"])), defineScriptVars({ url, label, content, labelIcon, type, component, reorderItemsLabels }));
 }, "/data/data/com.termux/files/home/astro-ecommerce/node_modules/@clerk/astro/components/interactive/CustomProfilePageRenderer.astro", void 0);
-const $$Astro$1 = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro$1 = createAstro("http://localhost:4321/");
 const $$UserProfileLink = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$UserProfileLink;
   const { url, label } = Astro2.props;
   return renderTemplate`${renderComponent($$result, "CustomProfilePageRenderer", $$CustomProfilePageRenderer, { "label": label, "url": url, "type": "link", "component": "user-profile" }, { "label-icon": ($$result2) => renderTemplate`${renderSlot($$result2, $$slots["label-icon"])}` })}`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/node_modules/@clerk/astro/components/interactive/UserProfile/UserProfileLink.astro", void 0);
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$UserProfilePage = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$UserProfilePage;

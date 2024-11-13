@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/accordion";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { useDev } from "@/hooks/use-dev.ts";
 
 import { useCartStore } from "@/features/cart/CartStore";
 import SearchForm from "@/features/search/SearchForm.tsx";
@@ -146,8 +145,7 @@ const listItem: NavbarItems[] = [
 ];
 
 const navList = () => {
-   const { handleNotWork } = useDev();
-
+   
    return (
       <>
          {[
@@ -177,12 +175,6 @@ const navList = () => {
                                           href={subItem.href}
                                           key={subItem.id}
                                           className="nav_links"
-                                          onClick={
-                                             !subItem.href ||
-                                             subItem.href === "#"
-                                                ? handleNotWork
-                                                : undefined
-                                          }
                                        >
                                           {subItem.title}
                                        </a>
@@ -195,11 +187,7 @@ const navList = () => {
                         <a
                            href={item.href}
                            className="nav_links"
-                           onClick={
-                              !item.href || item.href === "#"
-                                 ? handleNotWork
-                                 : undefined
-                           }
+                           
                         >
                            <item.icon className="w-4 h-4" />
                            {item.title}
@@ -239,34 +227,43 @@ export default function Navbar({
                />
                <span className="text-lg font-SatoshiBold">Acme Inc</span>
             </a>
-            <nav className="hidden gap-6 text-sm font-medium md:flex">
-               <a
-                  href="/"
-                  className="transition-colors hover:text-primary
+            <nav className="hidden gap-3 text-sm font-medium md:flex items-center">
+               <Button variant="linkHover2" asChild>
+                  <a
+                     href="/"
+                     className="transition-colors hover:text-primary
                font-SatoshiMedium"
-               >
-                  Home
-               </a>
-               <a
-                  href="#"
-                  className="transition-colors hover:text-primary font-SatoshiMedium"
-               >
-                  About
-               </a>
-               <a
-                  href="#"
-                  className="transition-colors hover:text-primary
+                  >
+                     Home
+                  </a>
+               </Button>
+               <Button variant="linkHover2" asChild>
+                  <a
+                     href="#"
+                     className="transition-colors hover:text-primary
                font-SatoshiMedium"
-               >
-                  Services
-               </a>
-               <a
-                  href="#"
-                  className="transition-colors hover:text-primary
+                  >
+                     About
+                  </a>
+               </Button>
+               <Button variant="linkHover2" asChild>
+                  <a
+                     href="#"
+                     className="transition-colors hover:text-primary
                font-SatoshiMedium"
-               >
-                  Contact
-               </a>
+                  >
+                     Services
+                  </a>
+               </Button>
+               <Button variant="linkHover2" asChild>
+                  <a
+                     href="#"
+                     className="transition-colors hover:text-primary
+               font-SatoshiMedium"
+                  >
+                     Contact
+                  </a>
+               </Button>
             </nav>
             <div className="space-x-2 flex justify-end items-center">
                <Sheet>

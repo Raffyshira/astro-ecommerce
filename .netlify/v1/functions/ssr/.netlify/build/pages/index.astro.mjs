@@ -1,16 +1,18 @@
-import { c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute } from "../chunks/astro/server_B4YGBfW-.mjs";
+import { c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute, g as renderTransition } from "../chunks/astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
 import "@astrojs/internal-helpers/path";
-import { $ as $$Image } from "../chunks/_astro_assets_8ZRGQkCu.mjs";
-import { d as cn, B as Button, $ as $$Container, b as $$Layout } from "../chunks/Container_LDLqM13Q.mjs";
-import { b as getAllProducts, C as CardProduct, c as getProductByCategory, T as TestCarousel } from "../chunks/card-product_CIkhEL-M.mjs";
+import { $ as $$Image } from "../chunks/_astro_assets_0LKZEtIm.mjs";
+import { c as cn, B as Button, $ as $$Container, b as $$Layout } from "../chunks/Container_CglYaq8S.mjs";
+import { b as getAllProducts, C as CardProduct, c as getProductByCategory, T as TestCarousel } from "../chunks/card-product_uwWMWWiH.mjs";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import * as React from "react";
 import { useState, useCallback, useEffect } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { AnimatePresence, motion } from "framer-motion";
-import { C as Card } from "../chunks/card_mvzUTpgv.mjs";
+import { Loader2 } from "lucide-react";
+import { C as Card } from "../chunks/card_DS9RxTBa.mjs";
+/* empty css                                 */
 import { renderers } from "../renderers.mjs";
 const Tabs = TabsPrimitive.Root;
 const TabsList = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
@@ -117,7 +119,7 @@ function ProductLists() {
         value: selectedCategory,
         defaultValue: "all",
         children: [
-          /* @__PURE__ */ jsx("div", { className: "sticky top-16 z-40", children: /* @__PURE__ */ jsx(TabsList, { className: "flex flex-row overflow-x-auto bg-white", children: categories.map((category) => /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsx("div", { className: "sticky top-16 z-40 ", children: /* @__PURE__ */ jsx(TabsList, { className: "flex flex-row overflow-x-auto bg-white rounded-none", children: categories.map((category) => /* @__PURE__ */ jsx(
             TabsTrigger,
             {
               value: category.value || category.name.toLowerCase().replace(/\s+/g, "-"),
@@ -154,7 +156,7 @@ function ProductLists() {
                           "img",
                           {
                             alt: product.title,
-                            className: "w-full aspect-square object-cover bg-gray-100",
+                            class: "w-full h-fit w-full aspect-square object-cover bg-gray-100",
                             src: product.thumbnail,
                             width: "200",
                             height: "200",
@@ -173,14 +175,17 @@ function ProductLists() {
         ]
       }
     ),
-    loading && /* @__PURE__ */ jsx("p", { className: "text-center mb-16", children: "Loading more products..." }),
-    !hasMore ? /* @__PURE__ */ jsx("p", { className: "text-center mb-16", children: "No more products to load" }) : /* @__PURE__ */ jsx("div", { className: "text-center mt-4 mb-16 px-5", children: /* @__PURE__ */ jsx(
+    /* @__PURE__ */ jsx("div", { className: "text-center mt-4 mb-16 px-5", children: /* @__PURE__ */ jsxs(
       Button,
       {
         onClick: loadMoreProducts,
         className: "font-SatoshiMedium w-full",
-        disabled: loading,
-        children: loading ? "Loading..." : "Load More"
+        disabled: loading || !hasMore,
+        variant: "gooeyRight",
+        children: [
+          loading && /* @__PURE__ */ jsx(Loader2, { className: "mr-2 h-4 w-4 animate-spin" }),
+          loading ? "Loading..." : hasMore ? "Load More" : "No More Products"
+        ]
       }
     ) })
   ] });
@@ -214,8 +219,8 @@ const LandingPage = new Proxy({ "src": "/_astro/landing_page.0quDChz2.jpg", "wid
 });
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
   const products = await getAllProducts();
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="z-20 mt-16 p-2"> ${renderComponent($$result2, "Image", $$Image, { "class": "w-full h-full aspect-video object-cover rounded-xl", "src": LandingPage, "alt": "photo", "width": 1600, "height": 600 })} </div> ${renderComponent($$result2, "Container", $$Container, { "class": "max-w-full" }, { "default": ($$result3) => renderTemplate` <div class="w-full flex justify-between items-center"> <h2 class="font-SatoshiBold sm:text-2xl">Shop By Category</h2> <a class="font-SatoshiLight hover:underline underline-offset-4 sm:text-xl " href="/">See All</a> </div> <div class="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3"> ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/Furniture.png", "title": "Furniture", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/handbag.png", "title": "HandBag", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/books.png", "title": "Books", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/tech.png", "title": "Tech", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/sneakers.png", "title": "Sneakers", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/travel.png", "title": "Travel", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} </div> ` })} ${renderComponent($$result2, "Container", $$Container, { "class": "py-0 -mb-12" }, { "default": ($$result3) => renderTemplate` ${renderComponent($$result3, "TestCarousel", TestCarousel, { "client:load": true, "initialScroll": 0, "client:component-hydration": "load", "client:component-path": "@/features/product/ProductCarousel.tsx", "client:component-export": "TestCarousel" }, { "default": ($$result4) => renderTemplate`${products.slice(0, 7).map((item) => renderTemplate`${renderComponent($$result4, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 sm:w-50" }, { "default": ($$result5) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`)}` })} ` })} ${renderComponent($$result2, "Container", $$Container, { "class": "px-0" }, { "default": ($$result3) => renderTemplate` ${renderComponent($$result3, "ProductLists", ProductLists, { "client:load": true, "client:component-hydration": "load", "client:component-path": "@/features/product/ProductsLists.tsx", "client:component-export": "default" })} ` })} ` })}`;
-}, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/index.astro", void 0);
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="z-20 mt-16 p-2"> ${renderComponent($$result2, "Image", $$Image, { "class": "w-full h-full aspect-video object-cover rounded-xl", "src": LandingPage, "alt": "photo", "width": 1600, "height": 600 })} </div> ${renderComponent($$result2, "Container", $$Container, { "class": "max-w-full" }, { "default": ($$result3) => renderTemplate` <div class="w-full flex justify-between items-center"> <h2 class="font-SatoshiBold sm:text-2xl">Shop By Category</h2> <a class="font-SatoshiLight hover:underline underline-offset-4 sm:text-xl " href="/">See All</a> </div> <div class="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3"> ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/Furniture.png", "title": "Furniture", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/handbag.png", "title": "HandBag", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/books.png", "title": "Books", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/tech.png", "title": "Tech", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/sneakers.png", "title": "Sneakers", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} ${renderComponent($$result3, "CardByCategory", CardByCategory, { "src": "/assets/images/travel.png", "title": "Travel", "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/card-product.tsx", "client:component-export": "CardByCategory" })} </div> ` })} ${renderComponent($$result2, "Container", $$Container, { "class": "py-0 -mb-12" }, { "default": ($$result3) => renderTemplate` ${renderComponent($$result3, "TestCarousel", TestCarousel, { "client:load": true, "initialScroll": 0, "client:component-hydration": "load", "client:component-path": "@/features/product/ProductCarousel.tsx", "client:component-export": "TestCarousel" }, { "default": ($$result4) => renderTemplate`${products.slice(0, 7).map((item) => renderTemplate`${renderComponent($$result4, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 sm:w-50" }, { "default": ($$result5) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"${addAttribute(renderTransition($$result5, "su42xxrg", "", `index - ${item.id}`), "data-astro-transition-scope")}> ` })}`)}` })} ` })} ${renderComponent($$result2, "Container", $$Container, { "class": "px-0" }, { "default": ($$result3) => renderTemplate` ${renderComponent($$result3, "ProductLists", ProductLists, { "client:load": true, "client:component-hydration": "load", "client:component-path": "@/features/product/ProductsLists.tsx", "client:component-export": "default" })} ` })} ` })}`;
+}, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/index.astro", "self");
 const $$file = "/data/data/com.termux/files/home/astro-ecommerce/src/pages/index.astro";
 const $$url = "";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({

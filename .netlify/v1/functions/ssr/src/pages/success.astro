@@ -1,0 +1,12 @@
+---
+import Container from "../components/main-components/Container.astro";
+import Layout from "../layouts/Layout.astro";
+
+import CheckoutSuccess from "@/features/cart/checkout-success.tsx"
+---
+
+<Layout>
+	<Container>
+		<CheckoutSuccess client:visible />
+	</Container>
+</Layout>

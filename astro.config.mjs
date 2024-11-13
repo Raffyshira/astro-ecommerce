@@ -6,7 +6,7 @@ import clerk from "@clerk/astro";
 
 // https://astro.build/config
 export default defineConfig({
-   site: "https://astroecommerce.netlify.app/",
+   site: "http://localhost:4321/",
    integrations: [
       tailwind({ applyBaseStyles: false }),
       react(),
@@ -26,5 +26,10 @@ export default defineConfig({
    },
    devToolbar: {
       enabled: false
+   },
+   vite: {
+      ssr: {
+         noExternal: ["@stripe/stripe-js"]
+      }
    }
 });

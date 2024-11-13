@@ -1,5 +1,4 @@
 import { Home, Bell, User, Mail } from "lucide-react";
-import { useDev } from "@/hooks/use-dev.ts";
 
 type NavItem = {
    name: string;
@@ -15,8 +14,7 @@ const navItems: NavItem[] = [
 ];
 
 export default function BottomNav() {
-   const { handleNotWork } = useDev();
-
+   
    return (
       <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background md:hidden">
          <ul className="flex justify-around items-center h-14">
@@ -26,11 +24,7 @@ export default function BottomNav() {
                      href={item.href}
                      className="flex flex-col items-center justify-center h-full
                      text-muted-foreground"
-                     onClick={
-                        !item.href || item.href === "#"
-                           ? handleNotWork
-                           : undefined
-                     }
+                     
                   >
                      <item.icon className="w-5 h-5" />
                      <span className="text-xs">{item.name}</span>

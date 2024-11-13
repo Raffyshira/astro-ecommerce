@@ -1,10 +1,10 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent } from "../chunks/astro/server_B4YGBfW-.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent } from "../chunks/astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { $ as $$Container, b as $$Layout } from "../chunks/Container_LDLqM13Q.mjs";
-import { $ as $$InternalUIComponentRenderer } from "../chunks/InternalUIComponentRenderer_BJ0MdcGB.mjs";
+import { $ as $$Container, b as $$Layout } from "../chunks/Container_CglYaq8S.mjs";
+import { $ as $$InternalUIComponentRenderer } from "../chunks/InternalUIComponentRenderer_Dw0c8k8G.mjs";
 import { renderers } from "../renderers.mjs";
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$SignIn = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$SignIn;

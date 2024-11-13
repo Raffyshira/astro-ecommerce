@@ -8,11 +8,15 @@ import { isTruthy } from "@clerk/shared/underscore";
 import { decodeJwt } from "@clerk/backend/jwt";
 import { pathToRegexp } from "@clerk/shared/pathToRegexp";
 import "es-module-lexer";
-import "./chunks/shared_BKLiCMcX.mjs";
+import "./chunks/shared_BTASe_bZ.mjs";
 import "@astrojs/internal-helpers/path";
 import { serialize, parse } from "cookie";
-import { A as AstroError, R as ResponseSentError } from "./chunks/astro/assets-service__L5dqHQs.mjs";
-const __vite_import_meta_env__ = { "ASSETS_PREFIX": void 0, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_d29ya2FibGUtY29sbGllLTU5LmNsZXJrLmFjY291bnRzLmRldiQ", "SITE": "https://astroecommerce.netlify.app/", "SSR": true };
+import { A as AstroError, R as ResponseSentError } from "./chunks/astro/assets-service_B0YYP38I.mjs";
+import "kleur/colors";
+import "html-escaper";
+import "clsx";
+import "./chunks/astro/server_BZopLqt2.mjs";
+const __vite_import_meta_env__ = { "ASSETS_PREFIX": void 0, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_d29ya2FibGUtY29sbGllLTU5LmNsZXJrLmFjY291bnRzLmRldiQ", "PUBLIC_SITE_URL": "http://localhost:4321", "PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_51QHPW500Ve0FplXnDmsPCpks8z0oLjUYORlf35tZSBFKCm7kQtegebq1XSgsWv1pY6iw2Bl3KbbC0xBvCQBeAIH800LmLKNQst", "SITE": "http://localhost:4321/", "SSR": true };
 function getContextEnvVar(envVarName, contextOrLocals) {
   const locals = "locals" in contextOrLocals ? contextOrLocals.locals : contextOrLocals;
   if (locals?.runtime?.env) {
@@ -573,6 +577,21 @@ class AstroCookies {
     this.#requestValues = parse(raw, options);
   }
 }
+function getParams(route, pathname) {
+  if (!route.params.length) return {};
+  const paramsMatch = route.pattern.exec(decodeURIComponent(pathname));
+  if (!paramsMatch) return {};
+  const params = {};
+  route.params.forEach((key, i) => {
+    if (key.startsWith("...")) {
+      params[key.slice(3)] = paramsMatch[i + 1] ? paramsMatch[i + 1] : void 0;
+    } else {
+      params[key] = paramsMatch[i + 1];
+    }
+  });
+  return params;
+}
+const apiContextRoutesSymbol = Symbol.for("context.routes");
 function sequence(...handlers) {
   const filtered = handlers.filter((h) => !!h);
   const length = filtered.length;
@@ -600,10 +619,16 @@ function sequence(...handlers) {
                 handleContext.request
               );
             }
+            const pipeline = Reflect.get(handleContext, apiContextRoutesSymbol);
+            const { routeData, pathname } = await pipeline.tryRewrite(
+              payload,
+              handleContext.request
+            );
             carriedPayload = payload;
             handleContext.request = newRequest;
             handleContext.url = new URL(newRequest.url);
             handleContext.cookies = new AstroCookies(newRequest);
+            handleContext.params = getParams(routeData, pathname);
           }
           return applyHandle(i + 1, handleContext);
         } else {

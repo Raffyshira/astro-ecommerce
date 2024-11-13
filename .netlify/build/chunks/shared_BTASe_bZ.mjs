@@ -1,4 +1,3 @@
-import "devalue";
 const codeToStatusMap = {
   // Implemented from tRPC error code table
   // https://trpc.io/docs/server/error-handling#error-codes

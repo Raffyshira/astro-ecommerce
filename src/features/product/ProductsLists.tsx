@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { AllProductTypes } from "../../types.d.ts";
 import { getAllProducts, getProductByCategory } from "@/lib/api.ts";
 
+import { Loader2 } from "lucide-react";
+
 type Category = {
    name: string;
    value: string | undefined;
@@ -85,8 +87,8 @@ export default function ProductLists() {
             value={selectedCategory}
             defaultValue="all"
          >
-            <div className="sticky top-16 z-40">
-               <TabsList className="flex flex-row overflow-x-auto bg-white">
+            <div className="sticky top-16 z-40 ">
+               <TabsList className="flex flex-row overflow-x-auto bg-white rounded-none">
                   {categories.map(category => (
                      <TabsTrigger
                         key={category.name}
@@ -137,7 +139,7 @@ export default function ProductLists() {
                                  >
                                     <img
                                        alt={product.title}
-                                       className="w-full aspect-square object-cover bg-gray-100"
+                                       class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
                                        src={product.thumbnail}
                                        width="200"
                                        height="200"
@@ -152,22 +154,21 @@ export default function ProductLists() {
                </motion.div>
             </AnimatePresence>
          </Tabs>
-         {loading && (
-            <p className="text-center mb-16">Loading more products...</p>
-         )}
-         {!hasMore ? (
-            <p className="text-center mb-16">No more products to load</p>
-         ) : (
-            <div className="text-center mt-4 mb-16 px-5">
-               <Button
-                  onClick={loadMoreProducts}
-                  className="font-SatoshiMedium w-full"
-                  disabled={loading}
-               >
-                  {loading ? "Loading..." : "Load More"}
-               </Button>
-            </div>
-         )}
+         <div className="text-center mt-4 mb-16 px-5">
+            <Button
+               onClick={loadMoreProducts}
+               className="font-SatoshiMedium w-full"
+               disabled={loading || !hasMore}
+               variant="gooeyRight"
+            >
+               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+               {loading
+                  ? "Loading..."
+                  : hasMore
+                  ? "Load More"
+                  : "No More Products"}
+            </Button>
+         </div>
       </div>
    );
 }

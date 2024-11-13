@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useCartStore } from "@/features/cart/CartStore.ts";
+import { loadStripe } from "@stripe/stripe-js";
+
 import { useToast } from "@/hooks/use-toast";
-import { Heart, Trash2 } from "lucide-react";
+import { Heart, Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge.tsx";
 
@@ -17,11 +19,15 @@ interface PropsTypes {
    quantity: number;
 }
 
+const stripePromise = loadStripe(import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
 const Cart: React.FC = () => {
    const cart = useCartStore(state => state.cart);
    const removeFromCart = useCartStore(state => state.removeFromCart);
    const clearCart = useCartStore(state => state.clearCart);
    const updateQuantity = useCartStore(state => state.updateQuantity);
+
+   const [loading, setLoading] = useState(false);
 
    const { toast } = useToast();
    const handleNotWork = () => {
@@ -61,20 +67,63 @@ const Cart: React.FC = () => {
       setTotalHarga(total);
    }, [cart]);
 
+   const handleCheckout = async () => {
+      setLoading(true);
+
+      try {
+         const stripe = await stripePromise;
+
+         // Call your server to create a Checkout session
+         const response = await fetch("/api/create-checkout-session", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ items: cart })
+         });
+
+         const session = await response.json();
+
+         // Redirect to Stripe Checkout
+         const result = await stripe!.redirectToCheckout({
+            sessionId: session.id
+         });
+
+         if (result.error) {
+            console.error(result.error.message);
+         }
+      } catch (error) {
+         console.error("Error:", error);
+      } finally {
+         setLoading(false);
+      }
+   };
+
    return (
-      <div className="mt-14">
+      <div className="w-full h-full">
          {cart.length === 0 ? (
-            <p className="text-center text-2xl font-SatoshiBold">
-               Your cart is empty.
-            </p>
+            <div
+               className="w-full h-screen flex flex-col justify-center
+            items-center"
+            >
+               <h4 className="text-center text-2xl font-SatoshiBold">
+                  Ohh no, Your cart is empty
+               </h4>
+               <p className="text-sm sm:text-base">
+                  It seems you dont have a items in your cart
+               </p>
+               <Button className="mt-3.5" variant="gooeyRight" asChild>
+                  <a href="/">Explore our product</a>
+               </Button>
+            </div>
          ) : (
             <>
-               <div className="mb-5">
+               <div className="mb-5 mt-14  ">
                   <h2 className="text-xl font-SatoshiBold">
                      Keranjang ({cart.length})
                   </h2>
                </div>
-               <div className="w-full h-fit grid grid-cols-1 sm:grid-cols-3 gap-4 ">
+               <div className="w-full h-fit grid grid-cols-1 pb-20 sm:grid-cols-3 gap-4 ">
                   <div className="w-full flex flex-col gap-4 sm:col-span-2">
                      {cart.map((item: PropsTypes) => (
                         <div
@@ -198,7 +247,12 @@ const Cart: React.FC = () => {
                      ))}
                   </div>
                   {cart.length > 0 && (
-                     <div className="fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow gap-x-4 sm:static sm:col-span-1 sm:h-full sm:rounded-lg sm:flex sm:flex-col sm:justify-between sm:items-start">
+                     <div
+                        className="fixed bottom-0 left-0 right-0 z-30 px-5
+                     py-3 bg-white shadow gap-x-4 sm:static sm:col-span-1
+                     sm:max-h-52 sm:rounded-lg sm:flex sm:flex-col sm:justify-between
+                     sm:items-start"
+                     >
                         <h2 className="text-lg font-SatoshiBold sm:mb-5 hidden sm:flex">
                            Ringkasan Belanja
                         </h2>
@@ -215,10 +269,21 @@ const Cart: React.FC = () => {
                               Clear Cart
                            </Button>
                            <Button
-                              onClick={handleNotWork}
+                              onClick={handleCheckout}
+                              disabled={loading}
                               className="w-full font-SatoshiBold"
                            >
-                              Checkout ({cart.length})
+                              {loading ? (
+                                 <span className="inline-flex items-center">
+                                    <Loader2
+                                       className="w-4 h-4 mr-2
+                                    animate-spin duration-1000"
+                                    />
+                                    Processing
+                                 </span>
+                              ) : (
+                                 "Checkout"
+                              )}
                            </Button>
                         </div>
                      </div>

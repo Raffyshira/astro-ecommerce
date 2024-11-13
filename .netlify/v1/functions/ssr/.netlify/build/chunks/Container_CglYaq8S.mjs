@@ -1,4 +1,4 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, d as addAttribute, g as renderHead, e as renderSlot, m as maybeRenderHead } from "./astro/server_B4YGBfW-.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, d as addAttribute, h as renderHead, e as renderSlot, m as maybeRenderHead } from "./astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
 /* empty css                         */
@@ -12,10 +12,10 @@ import { a as authAsyncStorage } from "./async-local-storage.server_DC-z4u9b.mjs
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Slot } from "@radix-ui/react-slot";
+import { Slottable, Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { ChevronRight, Check, Circle, User, LayoutDashboard, Settings, LogOut, X, ChevronDown, Search, History, ShoppingCart, Menu, Home, Briefcase, Mail, Info, Heart, ReceiptText, Star, ScanQrCode, Bell } from "lucide-react";
+import { ChevronRight, Check, Circle, User, LayoutDashboard, Settings, LogOut, X, ChevronDown, Search, History, ShoppingCart, Menu, Home, Briefcase, Mail, Info, Heart, ReceiptText, Star, ScanQrCode, Bell, Ban, CircleAlert } from "lucide-react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
@@ -519,7 +519,14 @@ const buttonVariants = cva(
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline"
+        link: "text-primary underline-offset-4 hover:underline",
+        expandIcon: "group relative text-primary-foreground bg-primary hover:bg-primary/90",
+        ringHover: "bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:ring-2 hover:ring-primary/90 hover:ring-offset-2",
+        shine: "text-primary-foreground animate-shine bg-gradient-to-r from-primary via-primary/75 to-primary bg-[length:400%_100%] ",
+        gooeyRight: "text-primary-foreground relative bg-primary z-0 overflow-hidden transition-all duration-500 before:absolute before:inset-0 before:-z-10 before:translate-x-[150%] before:translate-y-[150%] before:scale-[2.5] before:rounded-[100%] before:bg-gradient-to-r from-zinc-400 before:transition-transform before:duration-1000  hover:before:translate-x-[0%] hover:before:translate-y-[0%] ",
+        gooeyLeft: "text-primary-foreground relative bg-primary z-0 overflow-hidden transition-all duration-500 after:absolute after:inset-0 after:-z-10 after:translate-x-[-150%] after:translate-y-[150%] after:scale-[2.5] after:rounded-[100%] after:bg-gradient-to-l from-zinc-400 after:transition-transform after:duration-1000  hover:after:translate-x-[0%] hover:after:translate-y-[0%] ",
+        linkHover1: "relative after:absolute after:bg-primary after:bottom-2 after:h-[1px] after:w-2/3 after:origin-bottom-left after:scale-x-100 hover:after:origin-bottom-right hover:after:scale-x-0 after:transition-transform after:ease-in-out after:duration-300",
+        linkHover2: "relative after:absolute after:bg-primary after:bottom-2 after:h-[1px] after:w-2/3 after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -535,14 +542,27 @@ const buttonVariants = cva(
   }
 );
 const Button = React.forwardRef(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({
+    className,
+    variant,
+    size,
+    asChild = false,
+    Icon,
+    iconPlacement,
+    ...props
+  }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxs(
       Comp,
       {
         className: cn(buttonVariants({ variant, size, className })),
         ref,
-        ...props
+        ...props,
+        children: [
+          Icon && iconPlacement === "left" && /* @__PURE__ */ jsx("div", { className: "w-0 translate-x-[0%] pr-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-100 group-hover:pr-2 group-hover:opacity-100", children: /* @__PURE__ */ jsx(Icon, { className: "w-4 h-4" }) }),
+          /* @__PURE__ */ jsx(Slottable, { children: props.children }),
+          Icon && iconPlacement === "right" && /* @__PURE__ */ jsx("div", { className: "w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-2 group-hover:opacity-100", children: /* @__PURE__ */ jsx(Icon, { className: "w-4 h-4" }) })
+        ]
       }
     );
   }
@@ -859,132 +879,6 @@ const ScrollBar = React.forwardRef(({ className, orientation = "vertical", ...pr
   }
 ));
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
-const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1e6;
-let count = 0;
-function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER;
-  return count.toString();
-}
-const toastTimeouts = /* @__PURE__ */ new Map();
-const addToRemoveQueue = (toastId) => {
-  if (toastTimeouts.has(toastId)) {
-    return;
-  }
-  const timeout = setTimeout(() => {
-    toastTimeouts.delete(toastId);
-    dispatch({
-      type: "REMOVE_TOAST",
-      toastId
-    });
-  }, TOAST_REMOVE_DELAY);
-  toastTimeouts.set(toastId, timeout);
-};
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_TOAST":
-      return {
-        ...state,
-        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT)
-      };
-    case "UPDATE_TOAST":
-      return {
-        ...state,
-        toasts: state.toasts.map(
-          (t) => t.id === action.toast.id ? { ...t, ...action.toast } : t
-        )
-      };
-    case "DISMISS_TOAST": {
-      const { toastId } = action;
-      if (toastId) {
-        addToRemoveQueue(toastId);
-      } else {
-        state.toasts.forEach((toast2) => {
-          addToRemoveQueue(toast2.id);
-        });
-      }
-      return {
-        ...state,
-        toasts: state.toasts.map(
-          (t) => t.id === toastId || toastId === void 0 ? {
-            ...t,
-            open: false
-          } : t
-        )
-      };
-    }
-    case "REMOVE_TOAST":
-      if (action.toastId === void 0) {
-        return {
-          ...state,
-          toasts: []
-        };
-      }
-      return {
-        ...state,
-        toasts: state.toasts.filter((t) => t.id !== action.toastId)
-      };
-  }
-};
-const listeners = [];
-let memoryState = { toasts: [] };
-function dispatch(action) {
-  memoryState = reducer(memoryState, action);
-  listeners.forEach((listener) => {
-    listener(memoryState);
-  });
-}
-function toast({ ...props }) {
-  const id = genId();
-  const update = (props2) => dispatch({
-    type: "UPDATE_TOAST",
-    toast: { ...props2, id }
-  });
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
-  dispatch({
-    type: "ADD_TOAST",
-    toast: {
-      ...props,
-      id,
-      open: true,
-      onOpenChange: (open) => {
-        if (!open) dismiss();
-      }
-    }
-  });
-  return {
-    id,
-    dismiss,
-    update
-  };
-}
-function useToast() {
-  const [state, setState] = React.useState(memoryState);
-  React.useEffect(() => {
-    listeners.push(setState);
-    return () => {
-      const index = listeners.indexOf(setState);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
-    };
-  }, [state]);
-  return {
-    ...state,
-    toast,
-    dismiss: (toastId) => dispatch({ type: "DISMISS_TOAST", toastId })
-  };
-}
-const useDev = () => {
-  const { toast: toast2 } = useToast();
-  const handleNotWork = () => {
-    toast2({
-      title: "Maaf, Masih Tahap Development :)",
-      variant: "destructive"
-    });
-  };
-  return { handleNotWork };
-};
 const useCartStore = create()(
   persist(
     (set) => ({
@@ -1325,7 +1219,6 @@ const listItem = [
   }
 ];
 const navList = () => {
-  const { handleNotWork } = useDev();
   return /* @__PURE__ */ jsx(Fragment, { children: [
     listItem.slice(0, 4),
     listItem.slice(4, 8),
@@ -1345,7 +1238,6 @@ const navList = () => {
           {
             href: subItem.href,
             className: "nav_links",
-            onClick: !subItem.href || subItem.href === "#" ? handleNotWork : void 0,
             children: subItem.title
           },
           subItem.id
@@ -1357,7 +1249,6 @@ const navList = () => {
     {
       href: item.href,
       className: "nav_links",
-      onClick: !item.href || item.href === "#" ? handleNotWork : void 0,
       children: [
         /* @__PURE__ */ jsx(item.icon, { className: "w-4 h-4" }),
         item.title
@@ -1390,39 +1281,39 @@ function Navbar({
       ),
       /* @__PURE__ */ jsx("span", { className: "text-lg font-SatoshiBold", children: "Acme Inc" })
     ] }),
-    /* @__PURE__ */ jsxs("nav", { className: "hidden gap-6 text-sm font-medium md:flex", children: [
-      /* @__PURE__ */ jsx(
+    /* @__PURE__ */ jsxs("nav", { className: "hidden gap-3 text-sm font-medium md:flex items-center", children: [
+      /* @__PURE__ */ jsx(Button, { variant: "linkHover2", asChild: true, children: /* @__PURE__ */ jsx(
         "a",
         {
           href: "/",
           className: "transition-colors hover:text-primary\n               font-SatoshiMedium",
           children: "Home"
         }
-      ),
-      /* @__PURE__ */ jsx(
+      ) }),
+      /* @__PURE__ */ jsx(Button, { variant: "linkHover2", asChild: true, children: /* @__PURE__ */ jsx(
         "a",
         {
           href: "#",
-          className: "transition-colors hover:text-primary font-SatoshiMedium",
+          className: "transition-colors hover:text-primary\n               font-SatoshiMedium",
           children: "About"
         }
-      ),
-      /* @__PURE__ */ jsx(
+      ) }),
+      /* @__PURE__ */ jsx(Button, { variant: "linkHover2", asChild: true, children: /* @__PURE__ */ jsx(
         "a",
         {
           href: "#",
           className: "transition-colors hover:text-primary\n               font-SatoshiMedium",
           children: "Services"
         }
-      ),
-      /* @__PURE__ */ jsx(
+      ) }),
+      /* @__PURE__ */ jsx(Button, { variant: "linkHover2", asChild: true, children: /* @__PURE__ */ jsx(
         "a",
         {
           href: "#",
           className: "transition-colors hover:text-primary\n               font-SatoshiMedium",
           children: "Contact"
         }
-      )
+      ) })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "space-x-2 flex justify-end items-center", children: [
       /* @__PURE__ */ jsxs(Sheet, { children: [
@@ -1553,7 +1444,7 @@ function Navbar({
     ] })
   ] }) });
 }
-const $$Astro$2 = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro$2 = createAstro("http://localhost:4321/");
 const $$MainHeader = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$MainHeader;
@@ -1570,19 +1461,133 @@ const navItems = [
   { name: "Profile", href: "/user", icon: User }
 ];
 function BottomNav() {
-  const { handleNotWork } = useDev();
   return /* @__PURE__ */ jsx("nav", { className: "fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background md:hidden", children: /* @__PURE__ */ jsx("ul", { className: "flex justify-around items-center h-14", children: navItems.map((item) => /* @__PURE__ */ jsx("li", { className: "w-full", children: /* @__PURE__ */ jsxs(
     "a",
     {
       href: item.href,
       className: "flex flex-col items-center justify-center h-full\n                     text-muted-foreground",
-      onClick: !item.href || item.href === "#" ? handleNotWork : void 0,
       children: [
         /* @__PURE__ */ jsx(item.icon, { className: "w-5 h-5" }),
         /* @__PURE__ */ jsx("span", { className: "text-xs", children: item.name })
       ]
     }
   ) }, item.name)) }) });
+}
+const TOAST_LIMIT = 1;
+const TOAST_REMOVE_DELAY = 1e6;
+let count = 0;
+function genId() {
+  count = (count + 1) % Number.MAX_SAFE_INTEGER;
+  return count.toString();
+}
+const toastTimeouts = /* @__PURE__ */ new Map();
+const addToRemoveQueue = (toastId) => {
+  if (toastTimeouts.has(toastId)) {
+    return;
+  }
+  const timeout = setTimeout(() => {
+    toastTimeouts.delete(toastId);
+    dispatch({
+      type: "REMOVE_TOAST",
+      toastId
+    });
+  }, TOAST_REMOVE_DELAY);
+  toastTimeouts.set(toastId, timeout);
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TOAST":
+      return {
+        ...state,
+        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT)
+      };
+    case "UPDATE_TOAST":
+      return {
+        ...state,
+        toasts: state.toasts.map(
+          (t) => t.id === action.toast.id ? { ...t, ...action.toast } : t
+        )
+      };
+    case "DISMISS_TOAST": {
+      const { toastId } = action;
+      if (toastId) {
+        addToRemoveQueue(toastId);
+      } else {
+        state.toasts.forEach((toast2) => {
+          addToRemoveQueue(toast2.id);
+        });
+      }
+      return {
+        ...state,
+        toasts: state.toasts.map(
+          (t) => t.id === toastId || toastId === void 0 ? {
+            ...t,
+            open: false
+          } : t
+        )
+      };
+    }
+    case "REMOVE_TOAST":
+      if (action.toastId === void 0) {
+        return {
+          ...state,
+          toasts: []
+        };
+      }
+      return {
+        ...state,
+        toasts: state.toasts.filter((t) => t.id !== action.toastId)
+      };
+  }
+};
+const listeners = [];
+let memoryState = { toasts: [] };
+function dispatch(action) {
+  memoryState = reducer(memoryState, action);
+  listeners.forEach((listener) => {
+    listener(memoryState);
+  });
+}
+function toast({ ...props }) {
+  const id = genId();
+  const update = (props2) => dispatch({
+    type: "UPDATE_TOAST",
+    toast: { ...props2, id }
+  });
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
+  dispatch({
+    type: "ADD_TOAST",
+    toast: {
+      ...props,
+      id,
+      open: true,
+      onOpenChange: (open) => {
+        if (!open) dismiss();
+      }
+    }
+  });
+  return {
+    id,
+    dismiss,
+    update
+  };
+}
+function useToast() {
+  const [state, setState] = React.useState(memoryState);
+  React.useEffect(() => {
+    listeners.push(setState);
+    return () => {
+      const index = listeners.indexOf(setState);
+      if (index > -1) {
+        listeners.splice(index, 1);
+      }
+    };
+  }, [state]);
+  return {
+    ...state,
+    toast,
+    dismiss: (toastId) => dispatch({ type: "DISMISS_TOAST", toastId })
+  };
 }
 const ToastProvider = ToastPrimitives.Provider;
 const ToastViewport = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
@@ -1603,7 +1608,10 @@ const toastVariants = cva(
     variants: {
       variant: {
         default: "border bg-background text-foreground",
-        destructive: "destructive group border-destructive bg-destructive text-destructive-foreground"
+        destructive: "destructive group border-destructive bg-destructive text-destructive-foreground",
+        success: "bg-green-500 hover:bg-green-600 text-primary-foreground",
+        warning: "bg-yellow-400",
+        info: "bg-blue-500 hover:bg-blue-600 text-primary-foreground"
       }
     },
     defaultVariants: {
@@ -1666,14 +1674,44 @@ const ToastDescription = React.forwardRef(({ className, ...props }, ref) => /* @
   }
 ));
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
+const variantIconMap = {
+  default: null,
+  info: Info,
+  success: Check,
+  destructive: Ban,
+  warning: CircleAlert
+};
+const ToastIcon = ({
+  variantIcon,
+  ...props
+}) => {
+  const Icon = variantIconMap[variantIcon] || variantIconMap.default;
+  return /* @__PURE__ */ jsx(Icon, { ...props });
+};
 function Toaster() {
   const { toasts } = useToast();
   return /* @__PURE__ */ jsxs(ToastProvider, { children: [
-    toasts.map(function({ id, title, description, action, ...props }) {
+    toasts.map(function({
+      id,
+      title,
+      description,
+      action,
+      variantIcon,
+      ...props
+    }) {
       return /* @__PURE__ */ jsxs(Toast, { ...props, children: [
-        /* @__PURE__ */ jsxs("div", { className: "grid gap-1", children: [
-          title && /* @__PURE__ */ jsx(ToastTitle, { children: title }),
-          description && /* @__PURE__ */ jsx(ToastDescription, { children: description })
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsx(
+            ToastIcon,
+            {
+              variantIcon,
+              className: `h-5 w-5 ${variantIcon === "info" ? "text-white" : variantIcon === "success" ? "text-white" : variantIcon === "destructive" ? "text-white" : variantIcon === "warning" ? "text-black" : "text-gray-500"}`
+            }
+          ),
+          /* @__PURE__ */ jsxs("div", { children: [
+            title && /* @__PURE__ */ jsx(ToastTitle, { children: title }),
+            description && /* @__PURE__ */ jsx(ToastDescription, { children: description })
+          ] })
         ] }),
         action,
         /* @__PURE__ */ jsx(ToastClose, {})
@@ -1682,7 +1720,7 @@ function Toaster() {
     /* @__PURE__ */ jsx(ToastViewport, {})
   ] });
 }
-const $$Astro$1 = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro$1 = createAstro("http://localhost:4321/");
 const $$Layout = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$Layout;
@@ -1691,7 +1729,7 @@ const $$Layout = createComponent(($$result, $$props, $$slots) => {
   const showBottomNav = ["/", "/user", "/signin", "/register"].includes(Astro2.url.pathname);
   return renderTemplate`<html class="scroll-smooth" lang="id"> <head><title>${title || SITE_TITLE}</title><meta charset="UTF-8"><meta name="description"${addAttribute(description || SITE_DESCRIPTION, "content")}><meta name="viewport" content="width=device-width"><meta name="robots" content="index, follow"><meta name="googlebot" content="index, follow"><link rel="icon" type="image/svg+xml" href="/assets/logo-baru.png"><link rel="canonical"${addAttribute(canonicalURL, "href")}><meta name="generator"${addAttribute(Astro2.generator, "content")}><meta property="og:type" content="website"><meta property="og:title"${addAttribute(title || SITE_TITLE, "content")}><meta property="og:description"${addAttribute(description || SITE_DESCRIPTION, "content")}><meta property="og:url"${addAttribute(Astro2.url, "content")}><meta property="og:image"${addAttribute(Astro2.site + "logo-baru.png", "content")}><meta property="og:locale" content="id"><meta property="twitter:card" content="summary"><meta property="twitter:url"${addAttribute(X_ACCOUNT, "content")}><meta property="twitter:title"${addAttribute(title || SITE_TITLE, "content")}><meta property="twitter:description"${addAttribute(description || SITE_DESCRIPTION, "content")}><meta property="twitter:image"${addAttribute(Astro2.site + "logo-baru.png", "content")}>${renderHead()}</head> <body> ${renderComponent($$result, "MainHeader", $$MainHeader, {})} <main> ${renderSlot($$result, $$slots["default"])} ${showBottomNav && renderTemplate`${renderComponent($$result, "BottomNav", BottomNav, { "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/navbar/bottom-nav.tsx", "client:component-export": "default" })}`} </main> ${renderComponent($$result, "Toaster", Toaster, { "client:load": true, "client:component-hydration": "load", "client:component-path": "@/components/ui/toaster", "client:component-export": "Toaster" })} </body></html>`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/src/layouts/Layout.astro", void 0);
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$Container = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Container;
@@ -1703,9 +1741,8 @@ export {
   Button as B,
   useToast as a,
   $$Layout as b,
-  useDev as c,
-  cn as d,
-  useSearchStore as e,
-  BottomNav as f,
+  cn as c,
+  useSearchStore as d,
+  BottomNav as e,
   useCartStore as u
 };

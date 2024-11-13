@@ -1,10 +1,10 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute } from "../../chunks/astro/server_B4YGBfW-.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead, d as addAttribute } from "../../chunks/astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from "../../chunks/card-product_CIkhEL-M.mjs";
+import { P as ProductCarousel, g as getProductById, a as getRelatedProducts, b as getAllProducts, C as CardProduct } from "../../chunks/card-product_uwWMWWiH.mjs";
 import { jsxs, jsx } from "react/jsx-runtime";
 import "react";
-import { u as useCartStore, a as useToast, c as useDev, B as Button, b as $$Layout, $ as $$Container } from "../../chunks/Container_LDLqM13Q.mjs";
+import { u as useCartStore, a as useToast, B as Button, b as $$Layout, $ as $$Container } from "../../chunks/Container_CglYaq8S.mjs";
 import { Heart, Star, Camera, MessagesSquare, ChevronRight, StarIcon, ClockIcon } from "lucide-react";
 import { renderers } from "../../renderers.mjs";
 const ProductDetailMobile = ({
@@ -23,7 +23,6 @@ const ProductDetailMobile = ({
 }) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const { toast } = useToast();
-  const { handleNotWork } = useDev();
   const handleAddToCart = () => {
     addToCart({
       id,
@@ -36,7 +35,9 @@ const ProductDetailMobile = ({
       discountPercentage
     });
     toast({
-      title: "Yeay, Product Mu Sudah Di Keranjang"
+      variant: "success",
+      title: "Yeay, Product Mu Sudah Di Keranjang",
+      variantIcon: "success"
     });
   };
   return /* @__PURE__ */ jsxs("div", { className: "max-w-full w-full grid grid-cols-1 md:grid-cols-3 gap-5 md:mt-20 md:px-5 overflow-hidden", children: [
@@ -180,12 +181,11 @@ const ProductDetailMobile = ({
       /* @__PURE__ */ jsxs(
         "div",
         {
-          className: "flex justify-between  items-center fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow gap-x-4\n            ",
+          className: "flex justify-between items-center\n               fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow\n               gap-x-4\n            ",
           children: [
             /* @__PURE__ */ jsx(
               Button,
               {
-                onClick: handleNotWork,
                 variant: "outline",
                 className: "w-fit",
                 children: /* @__PURE__ */ jsx(MessagesSquare, { className: "w-4 h-4" })
@@ -205,7 +205,7 @@ const ProductDetailMobile = ({
     ] })
   ] });
 };
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$id = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$id;
@@ -225,9 +225,9 @@ const $$id = createComponent(async ($$result, $$props, $$slots) => {
   } else {
     Astro2.response.status = 400;
   }
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": product?.title || "Astro Ecommerce", "description": product?.description || "Acme Inc" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="max-w-full mb-5"> <!-- Hanya render komponen jika produk ditemukan --> ${product ? renderTemplate`${renderComponent($$result2, "ProductDetailMobile", ProductDetailMobile, { "id": product.id, "price": product.price, "images": product.images, "category": product.category, "thumbnail": product.thumbnail, "title": product.title, "discountPercentage": product.discountPercentage, "rating": product.rating, "reviews": product.reviews, "description": product.description, "sku": product.sku, "brand": product.brand, "client:idle": true, "client:component-hydration": "idle", "client:component-path": "@/features/product/product.tsx", "client:component-export": "ProductDetailMobile" })}
-      ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4"> ${relatedProducts.length > 0 ? relatedProducts.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}
-      ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 mb-10 md:grid-cols-4 gap-4"> ${productRecomend.length > 0 ? productRecomend.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}` : renderTemplate`<p>Produk tidak ditemukan.</p>`} </div> ` })}`;
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": product?.title || "Astro Ecommerce", "description": product?.description || "Acme Inc" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="max-w-full mb-5 transition-all"> <div> ${product ? renderTemplate`${renderComponent($$result2, "ProductDetailMobile", ProductDetailMobile, { "id": product.id, "price": product.price, "images": product.images, "category": product.category, "thumbnail": product.thumbnail, "title": product.title, "discountPercentage": product.discountPercentage, "rating": product.rating, "reviews": product.reviews, "description": product.description, "sku": product.sku, "brand": product.brand, "client:visible": true, "client:component-hydration": "visible", "client:component-path": "@/features/product/product.tsx", "client:component-export": "ProductDetailMobile" })}
+            ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Produk Terkait</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 md:grid-cols-4 gap-4"> ${relatedProducts.length > 0 ? relatedProducts.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}
+            ${renderComponent($$result2, "Container", $$Container, {}, { "default": ($$result3) => renderTemplate` <h2 class="text-lg font-SatoshiBold mb-5">Pilihan lain untuk mu</h2> <div class="w-full flex overflow-x-scroll sm:grid sm:grid-cols-3 mb-10 md:grid-cols-4 gap-4"> ${productRecomend.length > 0 ? productRecomend.map((item) => renderTemplate`${renderComponent($$result3, "CardProduct", CardProduct, { "id": item.id, "discount": item.discountPercentage, "name": item.title, "price": item.price, "rating": item.rating, "thumbnail": item.thumbnail, "className": "w-40 shrink-0 sm:w-full" }, { "default": ($$result4) => renderTemplate` <img${addAttribute(item.title, "alt")} class="w-full h-fit w-full aspect-square object-cover bg-gray-100"${addAttribute(item.thumbnail, "src")} width="200" height="200" loading="lazy"> ` })}`) : renderTemplate`<p>Tidak ada produk terkait.</p>`} </div> ` })}` : renderTemplate`<p>Produk tidak ditemukan.</p>`} </div> </div> ` })}`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/src/pages/product/[id].astro", void 0);
 const $$file = "/data/data/com.termux/files/home/astro-ecommerce/src/pages/product/[id].astro";
 const $$url = "/product/[id]";

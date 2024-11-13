@@ -1,4 +1,4 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, f as defineScriptVars, d as addAttribute, m as maybeRenderHead } from "./astro/server_B4YGBfW-.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, f as defineScriptVars, d as addAttribute, m as maybeRenderHead } from "./astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
 import "clsx";
@@ -9,7 +9,7 @@ var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(raw || cooked.slice()) }));
 var _a;
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$InternalUIComponentRenderer = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$InternalUIComponentRenderer;

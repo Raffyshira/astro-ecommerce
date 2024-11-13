@@ -1,6 +1,6 @@
-import { A as AstroError, f as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, E as ExpectedImageOptions, g as ExpectedImage, h as ExpectedNotESMImage, r as resolveSrc, j as isRemoteImage, k as isESMImportedImage, l as isLocalService, D as DEFAULT_HASH_PROPS, m as InvalidImageService, n as ImageMissingAlt } from "./astro/assets-service__L5dqHQs.mjs";
-import "@astrojs/internal-helpers/path";
-import { b as createAstro, c as createComponent, r as renderTemplate, m as maybeRenderHead, d as addAttribute, s as spreadAttributes } from "./astro/server_B4YGBfW-.mjs";
+import { isRemotePath } from "@astrojs/internal-helpers/path";
+import { A as AstroError, f as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, E as ExpectedImageOptions, g as ExpectedImage, h as ExpectedNotESMImage, r as resolveSrc, j as isRemoteImage, k as isESMImportedImage, l as isLocalService, D as DEFAULT_HASH_PROPS, m as InvalidImageService, n as ImageMissingAlt } from "./astro/assets-service_B0YYP38I.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, m as maybeRenderHead, d as addAttribute, s as spreadAttributes } from "./astro/server_BZopLqt2.mjs";
 import * as mime from "mrmime";
 import "html-escaper";
 import "clsx";
@@ -817,7 +817,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      "./astro/assets-service__L5dqHQs.mjs"
+      "./astro/assets-service_B0YYP38I.mjs"
     ).then((n) => n.o).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -854,7 +854,7 @@ async function getImage$1(options, imageConfig2) {
     ...options,
     src: await resolveSrc(options.src)
   };
-  if (options.inferSize && isRemoteImage(resolvedOptions.src)) {
+  if (options.inferSize && isRemoteImage(resolvedOptions.src) && isRemotePath(resolvedOptions.src)) {
     const result = await inferRemoteSize(resolvedOptions.src);
     resolvedOptions.width ??= result.width;
     resolvedOptions.height ??= result.height;
@@ -902,7 +902,7 @@ async function getImage$1(options, imageConfig2) {
     attributes: service.getHTMLAttributes !== void 0 ? await service.getHTMLAttributes(validatedOptions, imageConfig2) : {}
   };
 }
-const $$Astro$1 = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro$1 = createAstro("http://localhost:4321/");
 const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$Image;
@@ -923,7 +923,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   }
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(additionalAttributes)}${spreadAttributes(image.attributes)}>`;
 }, "/data/data/com.termux/files/home/astro-ecommerce/node_modules/astro/components/Image.astro", void 0);
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Picture;

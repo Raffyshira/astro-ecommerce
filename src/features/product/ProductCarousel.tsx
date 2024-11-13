@@ -28,7 +28,7 @@ interface TestCarouselProps {
 
 export const ProductCarousel: React.FC<PropsDataImage> = ({
    dataImage,
-   className
+   className,
 }) => {
    const [api, setApi] = useState<CarouselApi>();
    const [current, setCurrent] = useState<number>(0);
@@ -57,8 +57,8 @@ export const ProductCarousel: React.FC<PropsDataImage> = ({
             setApi={setApi}
          >
             <CarouselContent>
-               {dataImage.map((item, index) => (
-                  <CarouselItem key={index} className=" w-full">
+               {dataImage.map(item => (
+                  <CarouselItem key={item.id} className=" w-full">
                      <img
                         src={item}
                         className="w-full aspect-square object-cover mx-auto sm:w-96"
@@ -66,6 +66,7 @@ export const ProductCarousel: React.FC<PropsDataImage> = ({
                         width="600"
                         height="400"
                         loading="lazy"
+                        
                      />
                   </CarouselItem>
                ))}

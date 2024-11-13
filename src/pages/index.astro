@@ -49,14 +49,15 @@ const products = await getAllProducts();
           rating={item.rating}
           className="w-40 sm:w-50"
         >
-          <img
-            alt={item.title}
-            class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
-            src={item.thumbnail}
-            width="200"
-            height="200"
-            loading="lazy"
-          />
+             <img
+                alt={item.title}
+                 class="w-full h-fit w-full aspect-square object-cover bg-gray-100"
+                src={item.thumbnail}
+                width="200"
+                height="200"
+                loading="lazy"
+                transition:name={`index - ${item.id}`}
+             />
         </CardProduct>
       ))}
     </TestCarousel>

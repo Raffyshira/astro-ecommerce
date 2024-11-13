@@ -3,8 +3,8 @@ import "@/styles/globals.css";
 import { SITE_TITLE, SITE_DESCRIPTION, X_ACCOUNT } from "@/consts.ts";
 import MainHeader from "@/components/main-components/MainHeader.astro";
 import BottomNav from "@/components/navbar/bottom-nav.tsx"
-import { Toaster } from "@/components/ui/toaster";
-
+import { Toaster } from "@/components/ui/toaster"
+ 
 interface Props {
 	title?: string;
 	description?: string;
@@ -32,13 +32,14 @@ const showBottomNav = ['/', '/user', '/signin', '/register'].includes(Astro.url.
 		<meta property="og:description" content={description || SITE_DESCRIPTION} />
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:image" content={Astro.site + "logo-baru.png"} />
-    <meta property="og:locale" content="id" />
+        <meta property="og:locale" content="id" />
+        
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:url" content={X_ACCOUNT} />
+        <meta property="twitter:title" content={title || SITE_TITLE} />
+        <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
+        <meta property="twitter:image" content={Astro.site + "logo-baru.png"} />
     
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:url" content={X_ACCOUNT} />
-    <meta property="twitter:title" content={title || SITE_TITLE} />
-    <meta property="twitter:description" content={description || SITE_DESCRIPTION} />
-    <meta property="twitter:image" content={Astro.site + "logo-baru.png"} />
 	</head>
 	<body>
 	   <MainHeader />

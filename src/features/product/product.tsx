@@ -3,7 +3,8 @@ import type { AllProductTypes } from "@/types.d.ts";
 import { ProductCarousel } from "@/features/product/ProductCarousel.tsx";
 import { useCartStore } from "@/features/cart/CartStore.ts";
 import { useToast } from "@/hooks/use-toast";
-import { useDev } from "@/hooks/use-dev.ts";
+import { motion } from "framer-motion";
+
 import { Button } from "@/components/ui/button.tsx";
 import {
    Heart,
@@ -38,7 +39,6 @@ export const ProductDetailMobile: React.FC<AllProductTypes> = ({
 }) => {
    const addToCart = useCartStore(state => state.addToCart);
    const { toast } = useToast();
-   const { handleNotWork } = useDev();
    const handleAddToCart = () => {
       addToCart({
          id,
@@ -51,7 +51,9 @@ export const ProductDetailMobile: React.FC<AllProductTypes> = ({
          discountPercentage
       });
       toast({
-         title: "Yeay, Product Mu Sudah Di Keranjang"
+         variant: "success",
+         title: "Yeay, Product Mu Sudah Di Keranjang",
+         variantIcon: "success"
       });
    };
    return (
@@ -250,11 +252,13 @@ export const ProductDetailMobile: React.FC<AllProductTypes> = ({
                </div>
             </div>
             <div
-               className="flex justify-between  items-center fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow gap-x-4
+               className="flex justify-between items-center
+               fixed bottom-0 left-0 right-0 z-50 px-5 py-3 bg-white shadow
+               gap-x-4
             "
             >
                <Button
-                  onClick={handleNotWork}
+                  
                   variant="outline"
                   className="w-fit"
                >

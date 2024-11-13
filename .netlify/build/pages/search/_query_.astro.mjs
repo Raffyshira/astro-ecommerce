@@ -1,11 +1,11 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from "../../chunks/astro/server_B4YGBfW-.mjs";
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent, m as maybeRenderHead } from "../../chunks/astro/server_BZopLqt2.mjs";
 import "kleur/colors";
 import "html-escaper";
-import { d as cn, e as useSearchStore, $ as $$Container, f as BottomNav, b as $$Layout } from "../../chunks/Container_LDLqM13Q.mjs";
+import { c as cn, d as useSearchStore, $ as $$Container, e as BottomNav, b as $$Layout } from "../../chunks/Container_CglYaq8S.mjs";
 import { jsx, Fragment, jsxs } from "react/jsx-runtime";
 import { useEffect } from "react";
-import { C as Card, a as CardContent, b as CardFooter } from "../../chunks/card_mvzUTpgv.mjs";
-import { B as Badge } from "../../chunks/badge_BBg3bbpT.mjs";
+import { C as Card, a as CardContent, b as CardFooter } from "../../chunks/card_DS9RxTBa.mjs";
+import { B as Badge } from "../../chunks/badge_BZPtyY9U.mjs";
 import { Star } from "lucide-react";
 import { renderers } from "../../renderers.mjs";
 function Skeleton({
@@ -75,7 +75,7 @@ const SearchResult = ({ query }) => {
     ] })) : !loading && /* @__PURE__ */ jsx("p", { className: "mt-20", children: "No products found." }) }) })
   ] }) });
 };
-const $$Astro = createAstro("https://astroecommerce.netlify.app/");
+const $$Astro = createAstro("http://localhost:4321/");
 const $$query = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$query;

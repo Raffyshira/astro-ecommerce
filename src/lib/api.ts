@@ -29,9 +29,12 @@ export async function getAllProducts(
          throw new Error("Gagal mengambil data produk");
       }
       const data = await response.json();
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       if (isBrowser) {
          localStorage.setItem(cacheKey, JSON.stringify(data.products));
       }
+
       return data.products as AllProductTypes[]; // Mengembalikan array produk
    } catch (error) {
       console.error(error);

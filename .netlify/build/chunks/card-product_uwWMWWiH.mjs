@@ -1,11 +1,11 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import * as React from "react";
 import { createContext, useRef, useState, useEffect } from "react";
-import { d as cn, B as Button } from "./Container_LDLqM13Q.mjs";
+import { c as cn, B as Button } from "./Container_CglYaq8S.mjs";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight, MoveLeft, MoveRight, Star } from "lucide-react";
-import { B as Badge } from "./badge_BBg3bbpT.mjs";
-import { C as Card, a as CardContent, b as CardFooter } from "./card_mvzUTpgv.mjs";
+import { B as Badge } from "./badge_BZPtyY9U.mjs";
+import { C as Card, a as CardContent, b as CardFooter } from "./card_DS9RxTBa.mjs";
 const API_BASE_URL = "https://dummyjson.com/products";
 async function getAllProducts(offset = 0, limit = 15, category) {
   const cacheKey = `product-${limit}-${offset}-${category || "all"} `;
@@ -20,6 +20,7 @@ async function getAllProducts(offset = 0, limit = 15, category) {
       throw new Error("Gagal mengambil data produk");
     }
     const data = await response.json();
+    await new Promise((resolve) => setTimeout(resolve, 2e3));
     if (isBrowser) {
       localStorage.setItem(cacheKey, JSON.stringify(data.products));
     }
@@ -313,7 +314,7 @@ const ProductCarousel = ({
         className: "mt-10 w-full max-w-full overflow-hidden sm:mt-0",
         setApi,
         children: [
-          /* @__PURE__ */ jsx(CarouselContent, { children: dataImage.map((item, index) => /* @__PURE__ */ jsx(CarouselItem, { className: " w-full", children: /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsx(CarouselContent, { children: dataImage.map((item) => /* @__PURE__ */ jsx(CarouselItem, { className: " w-full", children: /* @__PURE__ */ jsx(
             "img",
             {
               src: item,
@@ -323,7 +324,7 @@ const ProductCarousel = ({
               height: "400",
               loading: "lazy"
             }
-          ) }, index)) }),
+          ) }, item.id)) }),
           /* @__PURE__ */ jsx(CarouselPrevious, {}),
           /* @__PURE__ */ jsx(CarouselNext, {})
         ]
